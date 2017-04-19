@@ -1,0 +1,95 @@
+# depslib dependency file v1.0
+1490991737 source:c:\users\yuche\desktop\ece4960\platform\assignment3\lib.cpp
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	"lib.h"
+	<algorithm>
+	<cmath>
+	<cstdio>
+
+1490991553 c:\users\yuche\desktop\ece4960\platform\assignment3\lib.h
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	<algorithm>
+	<cmath>
+	<cstdio>
+
+1492551796 source:c:\users\yuche\desktop\ece4960\platform\assignment3\main.cpp
+	<iostream>
+	<fstream>
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	"MatrixSolver.h"
+	"ExtractionParameter.h"
+	<algorithm>
+	<string>
+	"test.h"
+
+1492377037 source:c:\users\yuche\desktop\ece4960\platform\assignment3\matrixsolver.cpp
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	"MatrixSolver.h"
+	<algorithm>
+	<cmath>
+	<cstdio>
+
+1492370912 c:\users\yuche\desktop\ece4960\platform\assignment3\matrixsolver.h
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	<algorithm>
+	<cmath>
+	<cstdio>
+
+1492561795 source:c:\users\yuche\desktop\ece4960\platform\assignment3\extractionparameter.cpp
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	"ExtractionParameter.h"
+	<algorithm>
+	"MatrixSolver.h"
+
+1492219578 c:\users\yuche\desktop\ece4960\platform\assignment3\extractionparameter.h
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	<algorithm>
+	"MatrixSolver.h"
+
+1492398303 source:c:\users\yuche\desktop\ece4960\platform\assignment3\test.cpp
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	<algorithm>
+	"test.h"
+	"MatrixSolver.h"
+	<string>
+	<sstream>
+
+1492372898 c:\users\yuche\desktop\ece4960\platform\assignment3\test.h
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	<algorithm>
+	"MatrixSolver.h"
+	<string>
+

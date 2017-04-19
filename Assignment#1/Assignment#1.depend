@@ -1,0 +1,34 @@
+# depslib dependency file v1.0
+1487378915 source:c:\users\yuche\desktop\ece4960\platform\assignment#1\generate.cpp
+	<iostream>
+	<cstdio>
+	<cmath>
+	<climits>
+	<limits>
+	"generate.h"
+	"check.h"
+
+1487378926 c:\users\yuche\desktop\ece4960\platform\assignment#1\generate.h
+
+1487379046 source:c:\users\yuche\desktop\ece4960\platform\assignment#1\main.cpp
+	<iostream>
+	<cstdio>
+	<cmath>
+	<stdio.h>
+	<climits>
+	<limits>
+	<stdlib.h>
+	<malloc.h>
+	"generate.h"
+	"check.h"
+	<float.h>
+	<fstream>
+
+1487266119 source:c:\users\yuche\desktop\ece4960\platform\assignment#1\check.cpp
+	<iostream>
+	<cstdio>
+	<cmath>
+	"check.h"
+
+1487266233 c:\users\yuche\desktop\ece4960\platform\assignment#1\check.h
+

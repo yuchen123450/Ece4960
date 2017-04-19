@@ -1,0 +1,32 @@
+int overflow by using Fabonacci Begins
+Positive addition
+The overflow         exist
+Negative addition
+The overflow         exist
+
+int divided by zero Begins
+The divisor is zero, integer divided by zero is inf
+
+Float overflow Detection Begins
+overfloat test 0    pass
+overfloat test 1    pass
+overfloat test 2    pass
+overfloat test 3    pass
+
+INF and NINF in 1/x,sin(x),exp(x) Begins
+1/x,sin(x),exp(x) at inf passed:  3 (in 3)
+1/x,sin(x),exp(x) at -inf passed:  3 (in 3)
+1/x,sin(x),exp(x) at 0 passed:  3 (in 3)
+1/x,sin(x),exp(x) at -0 passed:  3 (in 3)
+
+Signed zero in limLog,limsinx/x Begins
+
+Nan Detecting Begins
+Nan Detecting test passed:  16 (in 16)
+
+Soft Landing Begins
+Soft Landing subtraction test pass
+Soft Landing division test pass
+Soft Landing sin test failed
+
+pi generate successfully by using <pi=4*(1-1/3+1/5-1/7+1/9...)>
