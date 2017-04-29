@@ -1,0 +1,109 @@
+# depslib dependency file v1.0
+1493355460 source:c:\users\yuche\desktop\ece4960\platform\assignment#4\main.cpp
+	<iostream>
+	<vector>
+	<cmath>
+	<stdlib.h>
+	<stdio.h>
+	"MatrixSolver.h"
+	"PerformValidation.h"
+	"Fig3Circuit.h"
+	"EKVcircuit.h"
+
+1493352342 source:c:\users\yuche\desktop\ece4960\platform\assignment#4\matrixsolver.cpp
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	"MatrixSolver.h"
+	<algorithm>
+	<cmath>
+	<cstdio>
+
+1493355911 c:\users\yuche\desktop\ece4960\platform\assignment#4\matrixsolver.h
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	<algorithm>
+	<cmath>
+	<cstdio>
+	<fstream>
+	<string>
+
+1492808430 c:\users\yuche\desktop\ece4960\platform\assignment#4\performvalidation.h
+	<iostream>
+	<vector>
+	<cmath>
+	<stdlib.h>
+	<stdio.h>
+	"MatrixSolver.h"
+
+1492834365 source:c:\users\yuche\desktop\ece4960\platform\assignment#4\performvalidation.cpp
+	<iostream>
+	<vector>
+	<cmath>
+	<stdlib.h>
+	<stdio.h>
+	"MatrixSolver.h"
+	"TopLevelModel.h"
+
+1493356113 c:\users\yuche\desktop\ece4960\platform\assignment#4\toplevelmodel.h
+	<iostream>
+	<vector>
+	<cmath>
+	<stdlib.h>
+	<stdio.h>
+	"MatrixSolver.h"
+
+1493355033 c:\users\yuche\desktop\ece4960\platform\assignment#4\fig3circuit.h
+	<iostream>
+	<vector>
+	<cmath>
+	<stdlib.h>
+	<stdio.h>
+	"MatrixSolver.h"
+	<string>
+
+1493356285 source:c:\users\yuche\desktop\ece4960\platform\assignment#4\fig3circuit.cpp
+	<iostream>
+	<vector>
+	<cmath>
+	<math.h>
+	<stdlib.h>
+	<stdio.h>
+	"MatrixSolver.h"
+	"TopLevelModel.h"
+	"Fig3Circuit.h"
+
+1493351219 source:c:\users\yuche\desktop\ece4960\platform\assignment#4\toplevelmodel.cpp
+	<iostream>
+	<vector>
+	<cmath>
+	<stdlib.h>
+	<stdio.h>
+	"MatrixSolver.h"
+	"TopLevelModel.h"
+
+1493356293 source:c:\users\yuche\desktop\ece4960\platform\assignment#4\ekvcircuit.cpp
+	<iostream>
+	<vector>
+	<cmath>
+	<math.h>
+	<stdlib.h>
+	<stdio.h>
+	"MatrixSolver.h"
+	"TopLevelModel.h"
+	"EKVcircuit.h"
+	"Fig3Circuit.h"
+
+1493355022 c:\users\yuche\desktop\ece4960\platform\assignment#4\ekvcircuit.h
+	<iostream>
+	<vector>
+	<cmath>
+	<stdlib.h>
+	<stdio.h>
+	"MatrixSolver.h"
+	<string>
+
