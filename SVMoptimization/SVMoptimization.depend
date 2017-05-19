@@ -1,0 +1,89 @@
+# depslib dependency file v1.0
+1495234851 source:c:\users\yuche\desktop\ece4960\platform\svmoptimization\main.cpp
+	<iostream>
+	<fstream>
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	<algorithm>
+	<string>
+	<sstream>
+	<float.h>
+	<ctype.h>
+	<stdarg.h>
+	"Test.h"
+	"SVMdual.h"
+
+1494105786 source:c:\users\yuche\desktop\ece4960\platform\svmoptimization\src\extractionparameter.cpp
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	<algorithm>
+	"MatrixOperate.h"
+	"ExtractionParameter.h"
+
+1495176497 c:\users\yuche\desktop\ece4960\platform\svmoptimization\include\matrixoperate.h
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	<algorithm>
+	<cmath>
+	<cstdio>
+	<fstream>
+	<string>
+
+1495237194 c:\users\yuche\desktop\ece4960\platform\svmoptimization\include\extractionparameter.h
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	<algorithm>
+	"MatrixOperate.h"
+
+1495174599 source:c:\users\yuche\desktop\ece4960\platform\svmoptimization\src\matrixoperate.cpp
+	"MatrixOperate.h"
+	<stdlib.h>
+	<stdio.h>
+	<iostream>
+	<vector>
+
+1495237338 source:c:\users\yuche\desktop\ece4960\platform\svmoptimization\src\svmdual.cpp
+	<vector>
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<algorithm>
+	"ExtractionParameter.h"
+	"MatrixOperate.h"
+	"SVMdual.h"
+
+1495237113 c:\users\yuche\desktop\ece4960\platform\svmoptimization\include\svmdual.h
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	<algorithm>
+	<cmath>
+	<cstdio>
+	<fstream>
+	<string>
+	"ExtractionParameter.h"
+	"MatrixOperate.h"
+
+1495178406 source:c:\users\yuche\desktop\ece4960\platform\svmoptimization\src\test.cpp
+	"Test.h"
+	<vector>
+	<stdio.h>
+	<stdlib.h>
+	<iostream>
+	"MatrixOperate.h"
+
+1495173824 c:\users\yuche\desktop\ece4960\platform\svmoptimization\include\test.h
+	<vector>
+
