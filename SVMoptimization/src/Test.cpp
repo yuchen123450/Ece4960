@@ -28,7 +28,7 @@ bool Test::VEq(vector<double> A, vector<double>  B)
     try
     {
         bool Eq=true;
-        if(A.size()!=B.size())                               //except when a vector size different from b vector size
+        if(A.size()!=B.size())                                                                      //except when a vector size different from b vector size
             throw "two array have different size";
         for(int i=0;i<A.size();i++)
         {
@@ -40,12 +40,47 @@ bool Test::VEq(vector<double> A, vector<double>  B)
         }
         return Eq;
     }
-    catch(const char* msg)                            // exception handling
+    catch(const char* msg)                                                                      // exception handling
     {
         cerr << msg << endl;
     }
 }
 
+bool Test::AverageCheck(vector<double> a, double Abar)                        // true if ave function is correct
+{
+    if (ave(a)==Abar)
+        return true;
+    else
+        return false;
+}
+
+void Test::AverageFixedTest()
+{
+    vector<double> a(3);
+    a[0]=1;
+    a[1]=4;
+    a[2]=4;
+    if (AverageCheck(a,3))                                                                              // check whether ybar=(1+4+4)/3=3
+        printf("AverageFixedTest:       pass\n");
+    else
+        printf("AverageFixedTest:       pass\n");
+}
+
+void Test::AverageRandTest()
+{
+    /* preset some values */
+    vector<double> a(4);
+    a[0]=(double) (rand() % 10);
+    a[1]=(double) (rand() % 100);
+    a[2]=(double) (rand() % 1000);
+    a[3]=(double) (rand() % 10000);
+    /*automatically calculated average value*/
+    double k= (a[0]+a[1]+a[2]+a[3])/4;                                                      // ybar=(y1+y2+y3+y4)/4
+    if (AverageCheck(a,k))                                                                           // true if average function is correct
+        printf("AverageFixedTest:       pass\n");
+    else
+        printf("AverageFixedTest:       pass\n");
+}
 
 /** subClass MatrixTest
  *
@@ -53,8 +88,6 @@ bool Test::VEq(vector<double> A, vector<double>  B)
  * Test production result
  *
  */
-
-
 
 MatrixTest::MatrixTest()
 {
@@ -79,6 +112,8 @@ void MatrixTest::RunTest()
     result[2]?printf("Matrix productVxM test--Fixed value: pass\n"):printf("Matrix productVxM test--Fixed value: fail\n");
     /* Random value test */
     RandomValueTest()?printf("Matrix operate test--Random value:            pass\n"):printf("Matrix operate test--Random value:         fail\n");
+    AverageFixedTest();
+    AverageRandTest();
 }
 
 vector<bool> MatrixTest::FixedValueTest()                         // manually calculate ground truth and test it
@@ -149,7 +184,5 @@ bool MatrixTest::RandomValueTest()                                          // r
     MatrixOperate< vector<vector<double> > > RandTestS(A,b);
     vector<double> s;
     s = RandTestS.DirectSolve(A,b);
-    DisplayVector(s);
-    DisplayVector(X);
     return VEq(s,X);
 }

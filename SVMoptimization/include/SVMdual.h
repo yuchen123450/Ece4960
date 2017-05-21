@@ -34,12 +34,16 @@ class SVMdual
         void GetExtract();
         double Predict(vector<double> Xtest);
         vector<double> Predict(vector< vector<double> > Xtest);
+        double CalR2Accuracy(vector< vector<double> >Xtest);
+        double CalRmseAccuracy(vector< vector<double> > Xtest);
     protected:
         bool Checktrain();
-        double CalTrainingAccuracy();
+        double CalTrainingR2Accuracy();
+        double CalTrainingRmseAccuracy();
     private:
         /* all privates are data*/
         vector<double> Gradient;
+        vector< vector<double> > LocalMinSet;
         double rho;
         vector<double> E;
         vector<double> y;

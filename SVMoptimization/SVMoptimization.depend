@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1495234851 source:c:\users\yuche\desktop\ece4960\platform\svmoptimization\main.cpp
+1495397027 source:c:\users\yuche\desktop\ece4960\platform\svmoptimization\main.cpp
 	<iostream>
 	<fstream>
 	<stdlib.h>
@@ -25,7 +25,7 @@
 	"MatrixOperate.h"
 	"ExtractionParameter.h"
 
-1495176497 c:\users\yuche\desktop\ece4960\platform\svmoptimization\include\matrixoperate.h
+1495352048 c:\users\yuche\desktop\ece4960\platform\svmoptimization\include\matrixoperate.h
 	<stdlib.h>
 	<stdio.h>
 	<math.h>
@@ -36,7 +36,7 @@
 	<fstream>
 	<string>
 
-1495237194 c:\users\yuche\desktop\ece4960\platform\svmoptimization\include\extractionparameter.h
+1495388409 c:\users\yuche\desktop\ece4960\platform\svmoptimization\include\extractionparameter.h
 	<iostream>
 	<stdlib.h>
 	<stdio.h>
@@ -45,14 +45,14 @@
 	<algorithm>
 	"MatrixOperate.h"
 
-1495174599 source:c:\users\yuche\desktop\ece4960\platform\svmoptimization\src\matrixoperate.cpp
+1495238417 source:c:\users\yuche\desktop\ece4960\platform\svmoptimization\src\matrixoperate.cpp
 	"MatrixOperate.h"
 	<stdlib.h>
 	<stdio.h>
 	<iostream>
 	<vector>
 
-1495237338 source:c:\users\yuche\desktop\ece4960\platform\svmoptimization\src\svmdual.cpp
+1495397125 source:c:\users\yuche\desktop\ece4960\platform\svmoptimization\src\svmdual.cpp
 	<vector>
 	<iostream>
 	<stdlib.h>
@@ -63,7 +63,7 @@
 	"MatrixOperate.h"
 	"SVMdual.h"
 
-1495237113 c:\users\yuche\desktop\ece4960\platform\svmoptimization\include\svmdual.h
+1495390158 c:\users\yuche\desktop\ece4960\platform\svmoptimization\include\svmdual.h
 	<stdlib.h>
 	<stdio.h>
 	<math.h>
@@ -76,7 +76,7 @@
 	"ExtractionParameter.h"
 	"MatrixOperate.h"
 
-1495178406 source:c:\users\yuche\desktop\ece4960\platform\svmoptimization\src\test.cpp
+1495245912 source:c:\users\yuche\desktop\ece4960\platform\svmoptimization\src\test.cpp
 	"Test.h"
 	<vector>
 	<stdio.h>
@@ -84,6 +84,6 @@
 	<iostream>
 	"MatrixOperate.h"
 
-1495173824 c:\users\yuche\desktop\ece4960\platform\svmoptimization\include\test.h
+1495245718 c:\users\yuche\desktop\ece4960\platform\svmoptimization\include\test.h
 	<vector>
 

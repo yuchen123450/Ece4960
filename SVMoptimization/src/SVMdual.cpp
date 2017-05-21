@@ -45,7 +45,10 @@ double SVMdual::K(vector<double> a, vector<double> b)
     try
     {
         if(a.size()!=b.size())                               //except when a vector size different from b vector size
-            throw "two array have different size";
+        {
+            printf("a size = %d, b size=%d\n", a.size(),b.size());
+            throw "K, two array have different size";
+        }
         double sum=0;                                      // initialize sum=0
         for(int i=0;i<a.size();i++)
         {
@@ -73,7 +76,6 @@ void SVMdual::GetExtract()
     /*construct a Local solver to find local optimal solution */
     ExtractionParameter<SVMdual> DoSvm(this);               // construct EXTRACTION PARAMETER problem
     alpha=DoSvm.GoExtract(this);                                      // using vector store solved solution
-    DisplayVector(alpha);
     printf("%lf\n",objective(alpha));
 
     /*test for local minimum, pass if the alpha give local minimum value*/
@@ -84,40 +86,61 @@ void SVMdual::GetExtract()
     else
         printf("LOS is false\n");
 
-    /* apply constraints that sum of alpha = 0*/
-    //double amplitude;
-    //amplitude = DotProduct(E,alpha)/sqrt( (double) DSize);  // the smallest distance we have to move
+     /* Apply TrustTech module */
+    double ExitNumber = DoSvm.TrustTechModule();
+    vector< vector<double> > alpha2;
+    alpha2.push_back(alpha);
+    for(int i=0;i<ExitNumber;i++)
+    {
+        DoSvm.Reset(i+1);                                                    // set temporary parameters to (i+1)th exit point
+        alpha2.push_back(DoSvm.GoExtract(this));                // do extraction again
+        if (objective(alpha2[i+1]) < objective(alpha))               // whenever next LOS better than previous minimum
+        {
+            alpha=alpha2[i+1];                                                // set that LOS as global minimum
+        }
+    }
 
+
+//    /* apply constraints that sum of alpha = 0*/
+//    double amplitude;
+//    amplitude = DotProduct(E,alpha)/sqrt( (double) DSize);  // the smallest distance we have to move
+//
 //    for(int i=0;i<DSize;i++)
 //    {
 //        alpha[i] = alpha[i]-amplitude/sqrt( (double) DSize);      // move along (-1,-1,...,-1) direction to approach that a1+a2+..an=0 plane
 //    }
 //    DisplayVector(alpha);
-    printf("%lf\n",objective(alpha));
-
-    /*check if the sum of alpha = 0*/
-    if (Checktrain())
-        printf("alpha satisfy sigma of alpha[i] = 0:      pass\n");
-    else
-        printf("alpha satisfy sigma of alpha[i] = 0:      failed\n");
+//    printf("%lf\n",objective(alpha));
+//
+//    /*check if the sum of alpha = 0*/
+//    if (Checktrain())
+//        printf("alpha satisfy sigma of alpha[i] = 0:      pass\n");
+//    else
+//        printf("alpha satisfy sigma of alpha[i] = 0:      failed\n");
 
     /* using the calculated result to compute Gradient */
     Gradient = DoSvm.PartialDeriv(this, alpha);
-    DisplayVector(Gradient);
+
     /* calculate rho */
     rho=CalculateRho();
     printf("rho=%lf\n",rho);
+
+    /* tell the error */
+    printf("The training error in R2 accuracy:          %lf\n",CalTrainingR2Accuracy());
+    printf("The training rmse error:                    %lf\n",CalTrainingRmseAccuracy());
+
 }
 
-double SVMdual::CalculateRho()
+double SVMdual::CalculateRho()                                      // calculate rho
 {
+    /* define and initialize*/
 	double r;
-	double nr_free = 0;
-	double ub = 999999, lb = -999999, sum_free = 0;
+	double nr_free = 0;                                                     // initialize valid number = 0
+	double ub = 999999, lb = -999999, sum_free = 0;         // set upper bound, lower bound, sum
 	for(int i=0;i<DSize;i++)
 	{
-		double yG = y[i]*Gradient[i];
-		if(alpha[i]>=ub)
+		double yG = y[i]*Gradient[i];                                  // calculate current yG
+		if(alpha[i]>=ub)                                                      // kick out over limit alpha
 		{
 			if(y[i]==-1)
 				ub = min(ub,yG);
@@ -131,10 +154,10 @@ double SVMdual::CalculateRho()
 			else
 				lb = max(lb,yG);
 		}
-		else
+		else                                                                      // if not all alpha over limit
 		{
-			++nr_free;
-			sum_free += yG;
+			++nr_free;                                                        // increment valid number
+			sum_free += yG;                                               // sum of valid yG
 		}
 	}
 
@@ -173,7 +196,7 @@ double SVMdual::Predict(vector<double> Xtest)
         }
         return result+rho;
     }
-    catch(const char* msg)                            // exception handling
+    catch(const char* msg)                                        // exception handling
     {
       cerr << msg << endl;
     }
@@ -189,11 +212,41 @@ vector<double> SVMdual::Predict(vector< vector<double> > Xtest)
     return result;
 }
 
-double SVMdual::CalTrainingR2Accuracy()
+double SVMdual::CalR2Accuracy(vector< vector<double> > Xtest)                 // calculate R2 accuracy
 {
     vector<double> prediction;
-    prediction = Predict(Xtrain);
+    prediction = Predict(Xtest);
+    double SST = 0;
+    double SSE = 0;
+    double ybar=ave(y);
+    for(int i=0;i<DSize;i++)
+    {
+        SST += pow((y[i]-ybar),2);                                 // SST = sum of (y[i]-ybar)**2
+        SSE += pow((y[i]-prediction[i]),2);                      // SSE = sum of Error**2
+    }
+    return 1-(SSE/SST);
+}
 
+double SVMdual::CalRmseAccuracy(vector< vector<double> > Xtest)
+{
+    vector<double> prediction;
+    prediction = Predict(Xtest);
+    double rmse = 0;
+    for(int i=0;i<DSize;i++)
+    {
+        rmse += pow((prediction[i]-y[i]),2);
+    }
+    return sqrt(rmse/(double)DSize);
+}
+
+double SVMdual::CalTrainingR2Accuracy()
+{
+    return CalR2Accuracy(Xtrain);
+}
+
+double SVMdual::CalTrainingRmseAccuracy()
+{
+    return CalRmseAccuracy(Xtrain);
 }
 
 double SVMdual::objective(vector<double> a)              // build objective function
@@ -205,7 +258,7 @@ double SVMdual::objective(vector<double> a)              // build objective func
         {
             sum += a[i]*a[j]*K(Xtrain[i],Xtrain[j])/2;            // sum of ai*aj*K(xi,xj)/2
         }
-        sum += Epsilon*abs(a[i])- y[i]*a[i];
+        sum += Epsilon*abs(a[i])- y[i]*a[i];                        // sum of Epsilon*abs(a[i]) - y[i]*a[i]
     }
     return sum;
 }

@@ -26,8 +26,9 @@ class ExtractionParameter
             temp[0] = 1;
             for(int i=0;i<ptr->DSize;i++)
             {
-                a.push_back(temp);                  //a[i][0]   = 1
-                TempParam.push_back(1);     //Temp[i] = 1
+                a.push_back(temp);                  // a[i][0]   = 1
+                TempParam.push_back(1);     // Temp[i] = 1
+                ExitPoint.push_back(temp);   // exit point[0] == initial guess
             }
             /*store ptr point to SVM*/
             ptr = ptr;
@@ -84,42 +85,68 @@ class ExtractionParameter
         {
             vector<double> Temp;
             vector<double> Prev;
+            vector<double> Temp2;
+            vector<double> Prev2;
             int Find=0;
             for(int i=0;i<ptr->DSize;i++)
             {
-                int timer = 0;
+                /* set 2 direction: positive (increase) or negative (decrease) iteratively along certain feature to find global minimum*/
+                int timer = 0;                                                                                              // set a timer to limit max search time
                 Prev   = TempParam;
                 Temp = TempParam;
-                double step = 0.001;
-                double Diff;
-                while(timer<150)
+                Prev2 = TempParam;
+                Temp2= TempParam;
+                double step = 0.001;                                                                                 // initialize changing step = 0.001
+                double step2 = 0.001;                                                                               // initialize changing step2 = 0.001
+                double Diff,Diff2;
+                while(timer<100)                                                                                     // set max search times: 150
                 {
-                    Diff =  ptr->obj(Temp) - ptr->obj(Prev);
+                    Diff =  ptr->objective(Temp) - ptr->objective(Prev);
+                    Diff2 =  ptr->objective(Temp2) - ptr->objective(Prev2);
+
                     /*break when detect exit point*/
-                    if ( Diff < 0)              // if I see obj value is no longer increasing, I know I got an exit point
+                    if (( Diff < 0) || (Diff2 < 0))                                              // if I see obj value is no longer increasing, I know I got an exit point
                     {
-                        ExitPoint.push_back(Temp);                               // push_back Exit point
-                        Find ++;                                                                  // # of Found exit point increment
+                        (Diff<0)?ExitPoint.push_back(Temp):ExitPoint.push_back(Temp2);                            // push_back Exit point, positive part or negative part?
+                        Find ++;                                                                                                                                    // # of Found exit point increment
                         break;
                     }
 
                     /*update one iteration*/
-                    Prev[i]     = Temp[i];
-                    Temp[i] += step;
+                    Prev[i]       = Temp[i];
+                    Temp[i]   += step;
+                    Prev2[i]     = Temp2[i];
+                    Temp2[i] += step2;
 
-                    /*adjust step*/
-                    if (( ptr->obj(Temp) - ptr->obj(Prev) ) > Diff)         //when obj increasing faster along i th dimension,
+                    /*adjust changing step*/
+                    if (( ptr->objective(Temp) - ptr->objective(Prev) ) > Diff)                  //when obj increasing faster along i th dimension,
                     {
-                        step /=2;                                                                    // slow the increasing step
+                        step /=2;                                                                             // slow the increasing step
                     }
-                    else if (( ptr->obj(Temp) - ptr->obj(Prev) ) < Diff) //when obj increasing slower along i th dimension
+                    else if (( ptr->objective(Temp) - ptr->objective(Prev) ) < Diff)         //when obj increasing slower along i th dimension
                     {
-                        step *= 2;                                                                  // speed up the increasing step
+                        step *= 2;                                                                           // speed up the increasing step
+                    }
+
+                    /*adjust changing step2*/
+                    if (( ptr->objective(Temp2) - ptr->objective(Prev2) ) > Diff2)          //when obj increasing faster along i th dimension,
+                    {
+                        step2 /=2;                                                                          // slow the increasing step
+                    }
+                    else if (( ptr->objective(Temp2) - ptr->objective(Prev2) ) < Diff2) //when obj increasing slower along i th dimension
+                    {
+                        step2 *= 2;                                                                       // speed up the increasing step
                     }
                 }
             }
             return Find;
         };
+
+        void Reset(int currentExit)                                                            // reset to current exit point
+        {
+            TempParam = ExitPoint[currentExit];
+        }
+
         bool TestExtract(T *ptr)
         {
             bool LOSisTrue = true;
@@ -171,7 +198,6 @@ class ExtractionParameter
         vector<double>      Gradient;
         vector< vector<double> > a;
         vector< vector<double> > ExitPoint;
-        vector< vector<double> > result;
         vector<double> TempParam;
         vector< vector<double> > Hess;
         vector<double> Jacobi;

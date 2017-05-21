@@ -132,4 +132,20 @@ void DisplayFullMatrix(double A[MaxSize][MaxSize]);
 void DisplayFullMatrix(std::vector< std::vector<double> > A) ;
 void DisplayVector(std::vector<double> Input);
 void ExpandVector(std::vector<double> &Input, int Size);
+double ave(vector<double> Input);
+template <class T>
+int argmin(vector<T> Input)
+{
+    T minimum=Input[0];
+    int ptr=0;
+    for(int i=0;i<Input.size();i++)
+    {
+        if (Input[i] < minimum)
+        {
+            minimum = Input[i];
+            ptr=i;
+        }
+    }
+    return ptr;
+};
 #endif // MATRIXOPERATE_H

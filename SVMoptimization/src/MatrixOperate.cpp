@@ -45,3 +45,14 @@ void ExpandVector(vector<double> &Input,int Size) //expand vector to size of Max
         Input.push_back(0);
     }
 }
+
+double ave(vector<double> Input)
+{
+    int s=Input.size();
+    double sum=0;
+    for(int i=0;i<s;i++)
+    {
+        sum += Input[i];
+    }
+    return sum/(double) s;
+}

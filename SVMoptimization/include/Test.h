@@ -12,8 +12,10 @@ class Test
         Test();
         virtual ~Test();
         bool VEq( vector<double> A, vector<double> B);
+        bool AverageCheck(vector<double> a, double Abar);
     protected:
-
+        void AverageFixedTest();
+        void AverageRandTest();
     private:
 };
 
