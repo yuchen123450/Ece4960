@@ -1,3 +1,13 @@
+/**  Matrix Operator
+ *
+ * Include some Matrix operator
+ * Direct Matrix Solver
+ * Matrix product
+ *
+ * Chen Yu
+ * May.23/2017
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>

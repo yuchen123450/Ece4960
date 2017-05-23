@@ -1,3 +1,11 @@
+/**
+ *
+ * Main function
+ * Chen Yu
+ * May.23/2017
+ *
+ */
+
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
@@ -100,11 +108,6 @@ int main()
      * compute
      *
      */
-//    vector<double> Xtest(4);                      // basic test in only 4 dimensions
-//    Xtest[0]=1;
-//    Xtest[1]=2;
-//    Xtest[2]=3;
-//    Xtest[3]=6;
 
     double Epsilon=0.2;
     vector<double> result;

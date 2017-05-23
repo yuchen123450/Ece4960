@@ -1,3 +1,10 @@
+/**  SVR module
+ *
+ * SVR problem setting
+ * Initialize something in SVR problem
+ * Chen Yu
+ * May.23/2017
+ */
 #include <vector>
 #include <iostream>
 #include <stdlib.h>

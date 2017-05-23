@@ -1,5 +1,13 @@
-#include <vector>
+/**  Test module
+ *
+ * Test for Matrix operators
+ * some accessory functional level test
+ * Chen Yu
+ * May.23/2017
+ */
 
+
+#include <vector>
 #ifndef TEST_H
 #define TEST_H
 #define TestCaseSize 3

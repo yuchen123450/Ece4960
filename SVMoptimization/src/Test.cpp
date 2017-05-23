@@ -1,3 +1,11 @@
+/**  Test module
+ *
+ * Test for Matrix operators
+ * some accessory functional level test
+ * Chen Yu
+ * May.23/2017
+ */
+
 #include "Test.h"
 #include <vector>
 #include <stdio.h>

@@ -1,3 +1,11 @@
+/** ExtractionParameter
+ *
+ *  Solve for the local minimum
+ *  Extra module: Trust-Tech
+ *  Include LOS test
+ *
+ */
+
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>

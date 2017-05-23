@@ -1,3 +1,11 @@
+/**  Matrix Operator
+ *
+ * Some global function accessory
+ *
+ * Chen Yu
+ * May.23/2017
+ */
+
 #include "MatrixOperate.h"
 #include <stdlib.h>
 #include <stdio.h>
