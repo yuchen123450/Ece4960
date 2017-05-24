@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -22,6 +23,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -32,9 +34,9 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="lib.cpp" />
-		<Unit filename="lib.h" />
+		<Unit filename="include/MatrixOperate.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/MatrixOperate.cpp" />
 		<Unit filename="test.cpp" />
 		<Unit filename="test.h" />
 		<Extensions>

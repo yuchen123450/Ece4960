@@ -1,8 +1,8 @@
-/*
-Chen Yu
-cy436
-2017 3 10
-ece4960
+/** Main
+* Chen Yu
+* cy436
+* 2017 3 10
+* ece4960
 */
 #include <iostream>
 #include <cmath>
@@ -12,18 +12,18 @@ ece4960
 #include <vector>
 #include <algorithm>
 
+#define ProblemRank 17758
+#define Nonzero         126150
+#define MaxLoops     50
+
+#include "MatrixOperate.h"
 #include "test.h"
-#include "lib.h"
+//#include "lib.h"
 using namespace std;
 
 int main()
 {
-    /*Input and Declaration*/
-    vector<double> X(17758);
-    vector<double> b(17758);
-
     /*read in data from mtx file*/
-    struct ComprassTypeMatrix MatrixA;
     ifstream fin("memplus.mtx");
     if ( ! fin.is_open() )
     {
@@ -38,48 +38,57 @@ int main()
     fin >> M >> N >> K;
     printf("col: %d, row: %d, nonzero: %d\n",M,N,K);
 
+    /*Input and Declaration*/
+    vector<double> X(ProblemRank);
+    vector<double> b(ProblemRank);
+
     /*read into sparse matrix MatrixA*/
     int A,B,pointer;
     int feedback;
     double C;
     pointer=0;
+    CompressTypeMatrix MatrixA;                                                                                   // define a new matrix
+    MatrixA.arrayPtr.push_back(0);                                                                                 // default the first element of ArrayPtr is 0
     for(int i=0;i<K;i++)
     {
         fin >> A >> B >> C;
-        feedback=AddElementIntoSparseM(MatrixA,A,B,C,i,pointer);
+        feedback += AddElementIntoSparseM(MatrixA,A,B,C,i,pointer);                          // push values into sparse matrix A
     }
     printf("MatrixA: rank=%d; nonzero=%d \n", MatrixA.Rank,MatrixA.NonZeroNumber);
 
-    /*Build D matrix*/
-    struct ComprassTypeMatrix MatrixD;
-    MatrixD=CreateDMatrix(MatrixA);
-    printf("MatrixD:  rank=%d; nonzero=%d \n", MatrixD.Rank,MatrixD.NonZeroNumber);
-
-    /*Build LU matrix*/
-    struct ComprassTypeMatrix MatrixLU;
-    MatrixLU=CreateLUMatrix(MatrixA);
-    printf("MatrixL+U: rank=%d; nonzero=%d \n", MatrixLU.Rank,MatrixLU.NonZeroNumber);
-
-    /*get D inv*/
-    InverseSparseDiagonal(MatrixD);
-
     /*set x0 all zeros*/
-    feedback=Zeros(X);
-    testAddition();
-    test1();
-    test2();
-    string bvar[6]={"b at 1st","b at 2nd","b at 5th","b at 6th","b at 8th","b=1 in all"};
+    //feedback=MA.Zeroes(X);
+//    testAddition();
+//    test1();
+//    test2();
+    vector<double> X(ProblemRank);
+    for(int i=0;i<ProblemRank;i++)
+    {
+        X[i]=i;
+    }
+
     int b1position[6]={1,2,5,6,8,0};
+    vector<double> Zero(ProblemRank);
     for(int i=0;i<6;i++)
     {
-        b=createb1(b1position[i],17758);
-        double eps;
-        for(int i=0;i<51;i++)
-        {
-            X= Addition(Product(MatrixD,Product(MatrixLU,X)),Product(MatrixD,b));
-            eps=abs(VecNorm(Addition(Neg(b),Product(MatrixA,X)))/VecNorm(b));
-            printf("epsilon=%lf at %d step\n",eps,i);
-        }
-        cout<< bvar[i]<< " result " << (eps>1?"diverge":"converge")<<endl;
+        b=createb1(b1position[i],ProblemRank);
+        printf("in main: b size:%d\n", b.size());
+        SparseMatrixOperate Solve(MatrixA,X,b);
+        vector<double> result;
+        result=Solve.JacobiSolve();
+        feedback = Solve.Zeroes(Zero);
+        if (Solve.VEq(Zero, result))
+            printf("diverge\n");
+        else
+            printf("converge\n");
     }
+//        double eps;
+//        for(int i=0;i<51;i++)
+//        {
+//            X= Addition(Product(MatrixD,Product(MatrixLU,X)),Product(MatrixD,b));
+//            eps=abs(VecNorm(Addition(Neg(b),Product(MatrixA,X)))/VecNorm(b));
+//            printf("epsilon=%lf at %d step\n",eps,i);
+//        }
+//        cout<< bvar[i]<< " result " << (eps>1?"diverge":"converge")<<endl;
+
 }

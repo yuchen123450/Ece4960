@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1489195953 source:c:\users\yuche\desktop\ece4960\platform\assigment2\lib.cpp
+1495527946 source:c:\users\yuche\desktop\ece4960\platform\assigment2\lib.cpp
 	<iostream>
 	<cmath>
 	<cstdio>
@@ -10,15 +10,24 @@
 	"test.h"
 	"lib.h"
 
-1489191994 c:\users\yuche\desktop\ece4960\platform\assigment2\lib.h
+1495533294 c:\users\yuche\desktop\ece4960\platform\assigment2\lib.h
 	<cstdio>
 	<stdio.h>
 	<vector>
 	<algorithm>
+
+1495593273 source:c:\users\yuche\desktop\ece4960\platform\assigment2\main.cpp
+	<iostream>
+	<cmath>
 	<cstdio>
 	<stdio.h>
+	<fstream>
+	<vector>
+	<algorithm>
+	"MatrixOperate.h"
+	"test.h"
 
-1489198306 source:c:\users\yuche\desktop\ece4960\platform\assigment2\main.cpp
+1495594505 source:c:\users\yuche\desktop\ece4960\platform\assigment2\test.cpp
 	<iostream>
 	<cmath>
 	<cstdio>
@@ -27,25 +36,26 @@
 	<vector>
 	<algorithm>
 	"test.h"
-	"lib.h"
+	"MatrixOperate.h"
 
-1489197999 source:c:\users\yuche\desktop\ece4960\platform\assigment2\test.cpp
-	<iostream>
+1495594511 c:\users\yuche\desktop\ece4960\platform\assigment2\test.h
+	<cstdio>
+	<stdio.h>
+	<vector>
+	<algorithm>
+	<cstdio>
+	<stdio.h>
+	"MatrixOperate.h"
+
+1495607472 c:\users\yuche\desktop\ece4960\platform\assigment2\include\matrixoperate.h
+	<vector>
+	<stdlib.h>
+
+1495593217 source:c:\users\yuche\desktop\ece4960\platform\assigment2\src\matrixoperate.cpp
+	<vector>
+	<stdlib.h>
 	<cmath>
-	<cstdio>
 	<stdio.h>
-	<fstream>
-	<vector>
-	<algorithm>
-	"test.h"
-	"lib.h"
-
-1489193174 c:\users\yuche\desktop\ece4960\platform\assigment2\test.h
-	<cstdio>
-	<stdio.h>
-	<vector>
-	<algorithm>
-	<cstdio>
-	<stdio.h>
-	"lib.h"
+	<iostream>
+	"MatrixOperate.h"
 
