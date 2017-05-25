@@ -47,27 +47,27 @@ int main()
      */
     PerformValidation Pv;
     Pv.runExtraction();
-//
-//    /**read in EKV Data
-//     */
-//    ifstream fin("outputNMOS.txt");
-//    if ( ! fin.is_open() )
-//    {
-//        cout << "Could not open file!" << '\n';
-//    }
-//
-//    // Ignore headers and comments:
-//    while (fin.peek() == '%') fin.ignore(256, '\n');
-//
-//    double receiver1,receiver2,receiver3;
-//    vector<double> Id,Vgs,Vds;
-//    for(int i=0;i<1010;i++)
-//    {
-//        fin >> receiver1 >> receiver2 >> receiver3;
-//        Id.push_back(receiver3);
-//        Vgs.push_back(receiver1);
-//        Vds.push_back(receiver2);
-//    }
+
+    /**read in EKV Data
+     */
+    ifstream fin("outputNMOS.txt");
+    if ( ! fin.is_open() )
+    {
+        cout << "Could not open file!" << '\n';
+    }
+
+    // Ignore headers and comments:
+    while (fin.peek() == '%') fin.ignore(256, '\n');
+
+    double receiver1,receiver2,receiver3;                   // 3 receiver to store Id, Vgs and Vds
+    vector<double> Id,Vgs,Vds;
+    for(int i=0;i<1010;i++)
+    {
+        fin >> receiver1 >> receiver2 >> receiver3;
+        Id.push_back(receiver3);
+        Vgs.push_back(receiver1);
+        Vds.push_back(receiver2);
+    }
 //
 //    /**compute EKV equation result
 //     */

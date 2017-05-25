@@ -19,6 +19,18 @@
 
 using namespace std;
 
+DirectFullMatrixSolver::DirectFullMatrixSolver(double A[MaxtrixSolverSize][MaxtrixSolverSize],vector<double> Xx)
+{
+    A=A;
+    X=Xx;
+    Rank=Xx.size();
+}
+DirectFullMatrixSolver::~DirectFullMatrixSolver()
+{
+
+}
+
+
 void DirectFullMatrixSolver::RowPermute(double A[MaxtrixSolverSize][MaxtrixSolverSize], vector<double> &X1, int RowIndex1, int RowIndex2)
 {
     if (RowIndex1 != RowIndex2)
@@ -82,11 +94,6 @@ void  DirectFullMatrixSolver::DisplayVector(vector<double> Input)
     printf("\n");
 }
 
-DirectFullMatrixSolver::DirectFullMatrixSolver(double A[MaxtrixSolverSize][MaxtrixSolverSize],vector<double> X)
-{
-    A=A;
-    X=X;
-}
 vector<double> DirectFullMatrixSolver::DirectSolve(double A[MaxtrixSolverSize][MaxtrixSolverSize],vector<double> X)
 {
     /*implement result instead of X which is private in the class*/
@@ -116,7 +123,7 @@ vector<double> DirectFullMatrixSolver::DirectSolve(double A[MaxtrixSolverSize][M
     }
 
     /*divided each row coefficient*/
-    for(int i=0;i<Rank;i++)
+    for(int i=0;i<X.size();i++)
     {
         if (A[i][i]!=0)                   // when element is nonzero
         {

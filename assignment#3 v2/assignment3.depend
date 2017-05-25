@@ -117,3 +117,91 @@
 	<vector>
 	"ExtractParameter.h"
 
+1495738377 source:c:\users\yuche\desktop\ece4960\platform\assignment#3 v2\main.cpp
+	<iostream>
+	<fstream>
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	"MatrixSolver.h"
+	"ExtractParameter.h"
+	"PerformValidation.h"
+	<string>
+	"test.h"
+
+1495741819 c:\users\yuche\desktop\ece4960\platform\assignment#3 v2\matrixsolver.h
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	<algorithm>
+	<cmath>
+	<cstdio>
+
+1495736962 c:\users\yuche\desktop\ece4960\platform\assignment#3 v2\include\extractparameter.h
+	<vector>
+	<stdlib.h>
+	"../MatrixSolver.h"
+
+1495717042 c:\users\yuche\desktop\ece4960\platform\assignment#3 v2\include\performvalidation.h
+	<cmath>
+	<stdlib.h>
+	<vector>
+	"ExtractParameter.h"
+
+1495737291 c:\users\yuche\desktop\ece4960\platform\assignment#3 v2\test.h
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	<algorithm>
+	"MatrixSolver.h"
+	<string>
+
+1495741843 source:c:\users\yuche\desktop\ece4960\platform\assignment#3 v2\matrixsolver.cpp
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	"MatrixSolver.h"
+	<algorithm>
+	<cmath>
+	<cstdio>
+
+1495741849 source:c:\users\yuche\desktop\ece4960\platform\assignment#3 v2\src\extractparameter.cpp
+	<vector>
+	<stdlib.h>
+	"ExtractParameter.h"
+	"../MatrixSolver.h"
+
+1495740102 source:c:\users\yuche\desktop\ece4960\platform\assignment#3 v2\src\performvalidation.cpp
+	<cmath>
+	<stdlib.h>
+	<vector>
+	"PerformValidation.h"
+	"ExtractParameter.h"
+
+1495741863 source:c:\users\yuche\desktop\ece4960\platform\assignment#3 v2\test.cpp
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	<algorithm>
+	"test.h"
+	"MatrixSolver.h"
+	<string>
+	<sstream>
+
+1495740526 source:c:\users\yuche\desktop\ece4960\platform\assignment#3 v2\src\ekvmodel.cpp
+	<math.h>
+	<stdlib.h>
+	<iostream>
+	"EKVModel.h"
+
+1495740526 c:\users\yuche\desktop\ece4960\platform\assignment#3 v2\include\ekvmodel.h
+	<vector>
+

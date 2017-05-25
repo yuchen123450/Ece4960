@@ -38,9 +38,11 @@
 		<Unit filename="ExtractionParameter.h" />
 		<Unit filename="MatrixSolver.cpp" />
 		<Unit filename="MatrixSolver.h" />
+		<Unit filename="include/EKVModel.h" />
 		<Unit filename="include/ExtractParameter.h" />
 		<Unit filename="include/PerformValidation.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/EKVModel.cpp" />
 		<Unit filename="src/ExtractParameter.cpp" />
 		<Unit filename="src/PerformValidation.cpp" />
 		<Unit filename="test.cpp" />

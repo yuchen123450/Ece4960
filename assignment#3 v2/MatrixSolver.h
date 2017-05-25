@@ -30,13 +30,12 @@ class DirectFullMatrixSolver   //my matrix solver supports up to rank 5 matrix
 private:
     double A[MaxtrixSolverSize][MaxtrixSolverSize];
     vector<double> X;
-    int Rank = MaxtrixSolverSize;
+    int Rank;
 
 public:
-    DirectFullMatrixSolver(double A[MaxtrixSolverSize][MaxtrixSolverSize],vector<double> X);
-    virtual ~DirectFullMatrixSolver(){
-    };
-    vector<double> DirectSolve(double A[MaxtrixSolverSize][MaxtrixSolverSize],vector<double> X);//(double A[5][5],vector<double> &X);
+    DirectFullMatrixSolver(double A[MaxtrixSolverSize][MaxtrixSolverSize],vector<double> Xx);
+    virtual ~DirectFullMatrixSolver();
+    vector<double> DirectSolve(double A[5][5],vector<double> X);//(double A[5][5],vector<double> &X);
     void DisplayFullMatrix(double A[MaxtrixSolverSize][MaxtrixSolverSize]);
     void DisplayVector(vector<double> Input);
     void RowPermute(double A[MaxtrixSolverSize][MaxtrixSolverSize], vector<double> &X1, int RowIndex1, int RowIndex2);

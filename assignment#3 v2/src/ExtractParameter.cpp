@@ -33,7 +33,7 @@ vector<double> ExtractParameter::OneIteratioinUpdate()     // parameter alpha Up
 {
     vector<double> Medium;
     DirectFullMatrixSolver Solve(J,G);
-    Medium = Solve.DirectSolve(J,G);                                     // Medium result the result from solving Jacobi and gradient
+    Medium = Solve.DirectSolve(J,G);                                          // Medium result the result from solving Jacobi and gradient
     double d=0;
     for(int i=0; i<ProblemSize;i++)
     {
@@ -45,17 +45,17 @@ vector<double> ExtractParameter::OneIteratioinUpdate()     // parameter alpha Up
     return TempParam;
 }
 
-/** subclass
- *
- * Quasi-Newton Method
- *
- */
-
-
-
-/** subclass
- *
- * Secant method
- *
- */
+///** subclass
+// *
+// * Quasi-Newton Method
+// *
+// */
+//
+//
+//
+///** subclass
+// *
+// * Secant method
+// *
+// */
 

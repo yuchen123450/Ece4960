@@ -65,11 +65,12 @@ void PerformValidation::runExtraction()
     vector<double> St(2);                                                                      // starting point, as initial guess
     St[0] = 9.0;
     St[1] = 0.8;
-    vector< vector<double> > SecantSt;                                              // Secant Starting
     QuasiNewtonMethod<PerformValidation> Validation(St);
     Solution=Validation.runExtract(this);
     printf("Quasi-Newton result: %lf,     %lf\n", exp(Solution[0]),exp(Solution[1]));
 
+
+    vector< vector<double> > SecantSt;                                              // Secant Starting
     QuasiNewtonMethod<PerformValidation> Preprocess(St);
     SecantSt = Preprocess.TwoIterationExtract(this);                            // get next guess following Quasi-Newton
     SecantMethod<PerformValidation> SValidation(SecantSt);
