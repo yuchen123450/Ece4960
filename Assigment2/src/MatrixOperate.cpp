@@ -439,8 +439,8 @@ vector<double> SparseMatrixOperate::JacobiSolve()
         X= Addition(Product(D,Product(LU,X)),Product(D,b));                                // X(k+1) = invD*invLU*X(k)+invD*b
         eps=abs(VecNorm(Addition(Neg(b),Product(A,X)))/VecNorm(b));              // calculate epsilon
     }
+    printf("epsilon=%lf\n",eps);
     if (eps>1)                                                                                                      // diverge then return all 0
-    printf("epsilon=%lf at %d step\n",eps,i);
     {
         Isconverge = false;
         return Z;
