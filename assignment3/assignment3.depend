@@ -93,3 +93,77 @@
 	"MatrixSolver.h"
 	<string>
 
+1495722887 source:c:\users\yuche\onedrive\documents\github\ece4960\assignment3\main.cpp
+	<iostream>
+	<fstream>
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	"MatrixSolver.h"
+	"ExtractionParameter.h"
+	<algorithm>
+	<string>
+	"test.h"
+
+1492370912 c:\users\yuche\onedrive\documents\github\ece4960\assignment3\matrixsolver.h
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	<algorithm>
+	<cmath>
+	<cstdio>
+
+1495722378 c:\users\yuche\onedrive\documents\github\ece4960\assignment3\extractionparameter.h
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	<algorithm>
+	"MatrixSolver.h"
+
+1492563042 c:\users\yuche\onedrive\documents\github\ece4960\assignment3\test.h
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	<algorithm>
+	"MatrixSolver.h"
+	<string>
+
+1492377037 source:c:\users\yuche\onedrive\documents\github\ece4960\assignment3\matrixsolver.cpp
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	"MatrixSolver.h"
+	<algorithm>
+	<cmath>
+	<cstdio>
+
+1495722457 source:c:\users\yuche\onedrive\documents\github\ece4960\assignment3\extractionparameter.cpp
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	"ExtractionParameter.h"
+	<algorithm>
+	"MatrixSolver.h"
+
+1492563055 source:c:\users\yuche\onedrive\documents\github\ece4960\assignment3\test.cpp
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<vector>
+	<algorithm>
+	"test.h"
+	"MatrixSolver.h"
+	<string>
+	<sstream>
+

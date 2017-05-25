@@ -187,6 +187,15 @@ bool IsInf(double t)
 {
     return t/t != t/t;
 }
+double ExtractParameter::SecandCallFunction(int FunctionNumber,vector<double> Is, vector<double> Kappa,vector<double> Vth,int loop)          // given loop number, return parameter(i) [current loop] - parameter(i) [currentloop -1]
+{
+    if (FunctionNumber == 1)
+        return (Is[loop]-Is[loop-1]);
+    else if (FunctionNumber == 2)
+        return (Kappa[loop]-Kappa[loop-1]);
+    else if (FunctionNumber == 3)
+        return (Vth[loop]-Vth[loop-1]);
+}
 
 vector<double> ExtractParameter::Task4ExtractParameterEKVModel(int Mode,int Task)//EKV model extraction parameter finding least-square fittest result
 {
@@ -234,6 +243,8 @@ vector<double> ExtractParameter::Task4ExtractParameterEKVModel(int Mode,int Task
         {
             /*start to solve f1 or f2 or f3 == 0*/
 
+            vector<double> fder(5);          //preparation before execute extraction parameter, Right hand side of that Ax=b
+
             /*Jacobi build*/
             if ((Mode==0) || (loop==0))                //Quasi-Newton Method
             {
@@ -243,33 +254,55 @@ vector<double> ExtractParameter::Task4ExtractParameterEKVModel(int Mode,int Task
                 for(int i=1;i<4;i++)
                 {
                     J[i-1][0] = (CallFunction(i,Vgs,Vds,1.00001*Is[loop],Kappa[loop],Vth[loop],Id,Task)-CallFunction(i,Vgs,Vds,Is[loop],Kappa[loop],Vth[loop],Id,Task))
-                                /(0.00001*Is[loop]);
+                                /(0.00001*Is[loop]);                            // d(d/dIs)/dIs = (d/dIs(1.000001*Is)-d/dIs(1*Is))/(0.00000001*Is)
                     J[i-1][1] = (CallFunction(i,Vgs,Vds,Is[loop],1.00001*Kappa[loop],Vth[loop],Id,Task)-CallFunction(i,Vgs,Vds,Is[loop],Kappa[loop],Vth[loop],Id,Task))
-                                /(0.00001*Kappa[loop]);
+                                /(0.00001*Kappa[loop]);                     // d(d/dIs)/dK = (d/dIs(1.000001*Kappa)-d/dIs(1*Kappa))/(0.00000001*Kappa)
                     J[i-1][2] = (CallFunction(i,Vgs,Vds,Is[loop],Kappa[loop],1.00001*Vth[loop],Id,Task)-CallFunction(i,Vgs,Vds,Is[loop],Kappa[loop],Vth[loop],Id,Task))
                                 /(0.00001*Vth[loop]);
                 }
+                fder[0]=-CallFunction(1,Vgs,Vds,Is[loop],Kappa[loop],Vth[loop],Id,Task);                            // call the gradient function for Is
+                fder[1]=-CallFunction(2,Vgs,Vds,Is[loop],Kappa[loop],Vth[loop],Id,Task);                            // call the gradient function for Kappa
+                fder[2]=-CallFunction(3,Vgs,Vds,Is[loop],Kappa[loop],Vth[loop],Id,Task);                            // call the gradient function for Vth
             }
-            else if ((Mode==1) && (loop>0))
+            else if ((Mode==1) && (loop>2))
             {
                 /**
                  * Secant method
                  */
                 for(int i=1;i<4;i++)
                 {
-                    J[i-1][0] = (CallFunction(i,Vgs,Vds,Is[loop],Kappa[loop],Vth[loop],Id,Task)-CallFunction(i,Vgs,Vds,Is[loop-1],Kappa[loop-1],Vth[loop-1],Id,Task))
-                                /(Is[loop]-Is[loop-1]);
-                    J[i-1][1] = (CallFunction(i,Vgs,Vds,Is[loop],Kappa[loop],Vth[loop],Id,Task)-CallFunction(i,Vgs,Vds,Is[loop-1],Kappa[loop-1],Vth[loop-1],Id,Task))
-                                /(Kappa[loop]-Kappa[loop-1]);
-                    J[i-1][2] = (CallFunction(i,Vgs,Vds,Is[loop],Kappa[loop],Vth[loop],Id,Task)-CallFunction(i,Vgs,Vds,Is[loop-1],Kappa[loop-1],Vth[loop-1],Id,Task))
-                                /(Vth[loop]-Vth[loop-1]);
+
+                    J[i-1][0] = ( ((EKVDeviation(Vgs,Vds,Is[loop],Kappa[loop],Vth[loop],Id,Task) - EKVDeviation(Vgs,Vds,Is[loop-1],Kappa[loop-1],Vth[loop-1],Id,Task))
+                                            /SecandCallFunction(i,Is,Kappa,Vth,loop))
+                                       - ((EKVDeviation(Vgs,Vds,Is[loop-1],Kappa[loop-1],Vth[loop-1],Id,Task) - EKVDeviation(Vgs,Vds,Is[loop-2],Kappa[loop-2],Vth[loop-2],Id,Task))
+                                            /SecandCallFunction(i,Is,Kappa,Vth,loop-1))  )
+                                      / (Is[loop]-Is[loop-1]);
+
+                                // in secant method, I have to use at least 3 points
+                                // d(d/dIs)/dIs =(d/dIs(Is now)-d/dIs(Is previous))/ (Is(now)-Is( previous))
+                                //                     = (( Ekv(current)-Ekv(previous))/(Is(now)-Is( previous))     -     ( Ekv(current-1)-Ekv(previous-1))/(Is(now-1)-Is( previous-1)    ) / Is[loop]-Is[loop-1]
+                    J[i-1][1] = ( ((EKVDeviation(Vgs,Vds,Is[loop],Kappa[loop],Vth[loop],Id,Task) - EKVDeviation(Vgs,Vds,Is[loop-1],Kappa[loop-1],Vth[loop-1],Id,Task))
+                                            /SecandCallFunction(i,Is,Kappa,Vth,loop))
+                                       - ((EKVDeviation(Vgs,Vds,Is[loop-1],Kappa[loop-1],Vth[loop-1],Id,Task) - EKVDeviation(Vgs,Vds,Is[loop-2],Kappa[loop-2],Vth[loop-2],Id,Task))
+                                            /SecandCallFunction(i,Is,Kappa,Vth,loop-1))  )
+                                      /(Kappa[loop]-Kappa[loop-1]);
+                                // d(d/dIs)/dIs =(d/dIs(Kappa now)-d/dIs(Kappa previous))/ (Is(now)-Is( previous))
+                                //                     = (( Ekv(current)-Ekv(previous))/Is(now)-Is( previous))     -     ( Ekv(current-1)-Ekv(previous-1))/(Is(now-1)-Is( previous-1)    ) / Kappa[loop]-Kappa[loop-1]
+                    J[i-1][2] = ( ((EKVDeviation(Vgs,Vds,Is[loop],Kappa[loop],Vth[loop],Id,Task) - EKVDeviation(Vgs,Vds,Is[loop-1],Kappa[loop-1],Vth[loop-1],Id,Task))
+                                            /SecandCallFunction(i,Is,Kappa,Vth,loop))
+                                       - ((EKVDeviation(Vgs,Vds,Is[loop-1],Kappa[loop-1],Vth[loop-1],Id,Task) - EKVDeviation(Vgs,Vds,Is[loop-2],Kappa[loop-2],Vth[loop-2],Id,Task))
+                                            /SecandCallFunction(i,Is,Kappa,Vth,loop-1))  )
+                                      /(Vth[loop]-Vth[loop-]);
                 }
+                fder[0]=-(EKVDeviation(Vgs,Vds,Is[loop],Kappa[loop],Vth[loop],Id,Task)-EKVDeviation(Vgs,Vds,Is[loop-1],Kappa[loop-1],Vth[loop-1],Id,Task))
+                                /(Is[loop]-Is[loop-1]);
+                fder[1]=-(EKVDeviation(Vgs,Vds,Is[loop],Kappa[loop],Vth[loop],Id,Task)-EKVDeviation(Vgs,Vds,Is[loop-1],Kappa[loop-1],Vth[loop-1],Id,Task))
+                                /(Kappa[loop]-Kappa[loop-1]);
+                fder[2]=-(EKVDeviation(Vgs,Vds,Is[loop],Kappa[loop],Vth[loop],Id,Task)-EKVDeviation(Vgs,Vds,Is[loop-1],Kappa[loop-1],Vth[loop-1],Id,Task))
+                                /(Vth[loop]-Vth[loop-1]);
             }
             /*solve for matrix*/
-            vector<double> fder(5);          //preparation before execute extraction parameter
-            fder[0]=-CallFunction(1,Vgs,Vds,Is[loop],Kappa[loop],Vth[loop],Id,Task);
-            fder[1]=-CallFunction(2,Vgs,Vds,Is[loop],Kappa[loop],Vth[loop],Id,Task);
-            fder[2]=-CallFunction(3,Vgs,Vds,Is[loop],Kappa[loop],Vth[loop],Id,Task);
+
             fder[3]=0;
             fder[4]=0;
 //            printf("fder=%lf, %lf, %lf\n",fder[0],fder[1],fder[2]);

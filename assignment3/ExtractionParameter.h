@@ -34,6 +34,7 @@ private:
     double f2(vector<double> Vgs,vector<double> Vds,double Is,double Kappa,double Vth,vector<double> Id,int Task);
     double f3(vector<double> Vgs,vector<double> Vds,double Is,double Kappa,double Vth,vector<double> Id,int Task);
     double CallFunction(int FunctionNumber,vector<double> Vgs,vector<double> Vds,double Is,double Kappa,double Vth,vector<double> Id,int Task);
+    double SecandCallFunction(int FunctionNumber,vector<double> Is, vector<double> Kappa,vector<double> Vth,int loop);
 public:
     ExtractParameter(vector<double> Smodel,vector<double> param,vector<double> IndependentVariable);
     ExtractParameter(vector<double> Smodel,vector<double> Vgs,vector<double> Vds,double Is0,double Kappa0,double Vth0);

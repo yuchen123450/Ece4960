@@ -37,6 +37,7 @@ int main()
 //    DMS.DisplayVector(DMS.DirectSolve(A,X));
 
     GoTestMatrixSolver();
+
     /**
      *  task 2
      *  perform validation of the power law equation
@@ -59,11 +60,11 @@ int main()
     a[1]=-0.5;
     vector<double> x(10);
     for(int i=0;i<10;i++)
-        x[i]=i+1;
+        x[i]=i+1;                           // x=1,2,...,10
 
     /**perform validation
      */
-    ExtractParameter Ex(Smodel,a,x);  //initialize the class
+    ExtractParameter Ex(Smodel,a,x);                                //initialize the class
     printf("in the power law validation: c=%lf, m=%lf\n",Ex.Task2LogExpressionValidation()[0],Ex.Task2LogExpressionValidation()[1]);
 
     /**read in EKV Data
@@ -77,6 +78,7 @@ int main()
     // Ignore headers and comments:
     while (fin.peek() == '%') fin.ignore(256, '\n');
 
+    /* 3 receivers read Id, Vg, Vds*/
     double receiver1,receiver2,receiver3;
     vector<double> Id,Vgs,Vds;
     for(int i=0;i<1010;i++)
@@ -89,7 +91,7 @@ int main()
 
     /**compute EKV equation result
      */
-    ExtractParameter EKVproblem(Id,Vgs,Vds,pow(10,-7),1,1);
+    ExtractParameter EKVproblem(Id,Vgs,Vds,pow(10,-7),0.8,1.1);
     vector<double> result = EKVproblem.Task4ExtractParameterEKVModel(1,4);
     printf("Is=%lf, Kappa=%lf, Vth=%lf, absolute deviation=%lf, Delta=%lf, dSIs=%lf, dSKappa=%lf, dSVth=%lf\n",
            result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7]);
@@ -127,6 +129,8 @@ int main()
     Vth[9] = 2.0;
     vector<double> FullParamResult;
     FullParamResult = EKVproblem.FullParameterSearch(Is,Kappa,Vth);
+    printf("----------------------------------------------------------\n");
+    printf("Full research starts:\n");
     printf("Smallest value happened @ Is=%.9lf, Kappa=%lf, Vth=%lf\n",FullParamResult[0],FullParamResult[1],FullParamResult[2]);
     printf("Second Smallest value happened @ Is=%.9lf, Kappa=%lf, Vth=%lf\n",FullParamResult[3],FullParamResult[4],FullParamResult[5]);
 }
