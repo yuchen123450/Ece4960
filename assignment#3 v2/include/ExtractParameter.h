@@ -264,11 +264,7 @@ vector<double> SecantMethod<T>::runExtract(T *ptr)
 {
     for(int i=0;i<MaxLoops;i++)                                                    // set max loop searching time
     {
-        DirectFullMatrixSolver Dis(J,G);
-        Dis.DisplayFullMatrix(J);
-        Dis.DisplayVector(G);
         CalJacobiGradient(ptr);                                                        // every loop calculate new Gradient and Jacobi first
-
         TempParam = OneIteratioinUpdate();                                   // iteratively renew the alpha;
         if (Delta[Delta.size()-1]<pow(10,-7))                                  // when delta less than 10^(-7), break the loop
         {

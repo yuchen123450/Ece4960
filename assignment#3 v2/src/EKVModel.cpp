@@ -2,7 +2,10 @@
 #include <stdlib.h>
 #include <iostream>
 #include "EKVModel.h"
+#include "ExtractParameter.h"
 
+
+using namespace std;
 /** Parent class
  *
  * construct a model with Input: Ids, Vgs, Vds,
@@ -17,6 +20,8 @@ EKVModel::~EKVModel()
 {
     //dtor
 }
+
+
 
 /** Subclass Task4
  *
@@ -57,6 +62,32 @@ double Task4::objective(vector<double> Parameter)
     }
 }
 
+void Task4::runExtract()
+{
+    vector<double> Solution;
+    vector<double> SSolution;
+    vector<double> St(3);                                                                      // starting point, as initial guess
+    St[0] = Is;
+    St[1] = Kappa;
+    St[2] = Vth;
+    QuasiNewtonMethod<Task4> EkvNewton(St);
+    Solution=EkvNewton.runExtract(this);
+    printf("Quasi-Newton result: Is= %lf,  Kappa= %lf,   Vth= %lf  \n", Solution[0],Solution[1],Solution[2]);
+
+
+    vector< vector<double> > SecantSt;                                              // Secant Starting
+    QuasiNewtonMethod<Task4> Preprocess(St);
+    SecantSt = Preprocess.TwoIterationExtract(this);                            // get next guess following Quasi-Newton
+    SecantMethod<Task4> EkvSecant(SecantSt);
+    SSolution = EkvSecant.runExtract(this);
+    printf("Secant method result: Is= %lf,  Kappa= %lf,   Vth= %lf  \n", Solution[0],Solution[1],Solution[2]);
+}
+
+vector<double> Task4::FullParameterSearch(vector<double> x1,vector<double> x2, vector<double> x3)
+{
+    return FullParameter2Search( x1, x2, x3,this);
+}
+
 /** Subclass Task5
  *
  * only function is Objective function
@@ -95,3 +126,29 @@ double Task5::objective(vector<double> Parameter)
         return 0;
     }
 }
+
+void Task5::runExtract()
+{
+    vector<double> Solution;
+    vector<double> SSolution;
+    vector<double> St(3);                                                                      // starting point, as initial guess
+    St[0] = Is;
+    St[1] = Kappa;
+    St[2] = Vth;
+    QuasiNewtonMethod<Task5> EkvNewton(St);
+    Solution=EkvNewton.runExtract(this);
+    printf("Quasi-Newton result: Is= %lf,  Kappa= %lf,   Vth= %lf  \n", Solution[0],Solution[1],Solution[2]);
+
+
+    vector< vector<double> > SecantSt;                                              // Secant Starting
+    QuasiNewtonMethod<Task5> Preprocess(St);
+    SecantSt = Preprocess.TwoIterationExtract(this);                            // get next guess following Quasi-Newton
+    SecantMethod<Task5> EkvSecant(SecantSt);
+    SSolution = EkvSecant.runExtract(this);
+    printf("Secant method result: Is= %lf,  Kappa= %lf,   Vth= %lf  \n", Solution[0],Solution[1],Solution[2]);
+}
+vector<double> Task5::FullParameterSearch(vector<double> x1,vector<double> x2, vector<double> x3)
+{
+    return FullParameter2Search(x1,x2,x3,this);
+}
+
