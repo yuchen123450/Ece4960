@@ -1,10 +1,11 @@
 /** Matrix Operator
  *
  * Chen Yu
- * 5/23/2017
+ * 5/24/2017
  * Input: matrix A, vector X or vector b
  * Output: corresponding vector b or vector X satisfying Ax=b
  *
+ * In solving problem, output from JacobiSolve is not exact result. It have to go with the X to find out the real solution because at the beginning we do some permutation on A to make diagonal dominating
  */
 
  #include <vector>
@@ -28,8 +29,6 @@ struct CompressTypeMatrix                                           // Compress 
     vector<int> arrayPtr;
     int NonZeroNumber=0;
     int Rank=0;
-    int rowSize=0;
-    int colSize=0;
 };
 
 /* add more points into an existed sparse matrix*/
@@ -74,12 +73,15 @@ class MatrixOperate
         /* display stuff */
         void DisplayVector(vector<double> Input);
         void DisplaySparseMatrix(CompressTypeMatrix SparseM);
-        void DisplayFullMatrix(vector< vector<double> A);
+        void DisplayFullMatrix(vector< vector<double> >A);
 
-        vector< vector<double> > Trans2FullMatrix(CompressTypeMatrix Input)   //transform from Compress row form into Full Matrix
-
+        vector< vector<double> > Trans2FullMatrix(CompressTypeMatrix Input);   // transform from Compress row form into Full Matrix
+        double SecondNorm(CompressTypeMatrix SparseM, vector< vector<double> > A);
+        void testSecondNormandTran2FullMatrix();                                                         // the test is a kind of inverse test to test both Trans2FullMatrix and SecondNorm
+                                                                                                                                            // Random build a compress matrix and convert to full matrix, the second norm = 0 then both correct
     protected:
-        bool IsSparseMatrix;
+        bool IsSparseMatrix=false;
+        bool IsFullMatrix=false;
     private:
 };
 
@@ -96,6 +98,11 @@ class SparseMatrixOperate: public MatrixOperate
     public:
         SparseMatrixOperate(CompressTypeMatrix MatrixA, vector<double> X, vector<double> b);
         virtual ~SparseMatrixOperate();
+
+        /**
+         * these public function could be tested in functional level test outside
+         * internally when I want to get Diagonal or other function on default matrix A, the function in private and protected realize it
+         */
         CompressTypeMatrix CreateDMatrix(CompressTypeMatrix Input);
         CompressTypeMatrix CreateLUMatrix(CompressTypeMatrix Input);
         void PermuteRow(CompressTypeMatrix &Input, vector<double> &b, int RowIndex1, int RowIndex2);
@@ -105,15 +112,17 @@ class SparseMatrixOperate: public MatrixOperate
         vector<double> JacobiSolve();
         vector<double> Product(CompressTypeMatrix Input, vector<double> X);
     protected:
-        CompressTypeMatrix CreateDMatrix();
-        CompressTypeMatrix CreateLUMatrix();
+        CompressTypeMatrix CreateDMatrix();                                                             // Do D matrix creation by given A
+        CompressTypeMatrix CreateLUMatrix();                                                           // Do D matrix creation by given A
     private:
+        bool Isconverge;
         CompressTypeMatrix A;
         CompressTypeMatrix D;
         CompressTypeMatrix LU;
         void InverseSparseDiagonal(CompressTypeMatrix &Input);
         vector<double> x;
         vector<double> b;
+        void DiagonalMaximize();
 };
 
 /** Subclass for full matrix operator
@@ -131,19 +140,21 @@ class SparseMatrixOperate: public MatrixOperate
         virtual ~FullMatrixOperate();
         void PermuteRow(vector< vector<double> > &Input, vector<double> &b, int RowIndex1, int RowIndex2);
         void PermuteColumn(vector< vector<double> > &Input, vector<double> &X, int ColIndex1, int ColIndex2);
+        vector< vector<double> > CreateDMatrix(vector< vector<double> > Input);
+        vector< vector<double> > CreateLUMatrix(vector< vector<double> > Input);
+        void DiagonalMaximize( vector< vector<double> > &Input,vector<double> &Xcomp,vector<double> &b);
 
         vector<double> JacobiSolve();
-        vector<double> Product(CompressTypeMatrix Input, vector<double> X);
+        vector<double> Product( vector< vector<double> > Input, vector<double> X);
     protected:
-        CompressTypeMatrix CreateDMatrix();
-        CompressTypeMatrix CreateLUMatrix();
+
     private:
         vector< vector<double> > A;
-        vector< vector<double> > D;
-        vector< vector<double> > LU;
-        void InverseSparseDiagonal(CompressTypeMatrix &Input);
+        //vector< vector<double> > D;
+        //vector< vector<double> > LU;
+        //vector< vector<double> > InverseSparseDiagonal( vector< vector<double> > Input);
         vector<double> x;
         vector<double> b;
-        void DiagonalMaximize(CompressTypeMatrix &Input,vector<double> &Xcomp,vector<double> &b);
+        void DiagonalMaximize();
 };
 #endif // MATRIXOPERATE_H

@@ -14,7 +14,6 @@
 
 #define ProblemRank 17758
 #define Nonzero         126150
-#define MaxLoops     50
 
 #include "MatrixOperate.h"
 #include "test.h"
@@ -56,12 +55,13 @@ int main()
     }
     printf("MatrixA: rank=%d; nonzero=%d \n", MatrixA.Rank,MatrixA.NonZeroNumber);
 
-    /*set x0 all zeros*/
-    //feedback=MA.Zeroes(X);
+    /* run test before run computation*/
+    runModularTest();
+    MainFunctionalTest MainTest;
+    MainTest.runTest();
 //    testAddition();
 //    test1();
 //    test2();
-    vector<double> X(ProblemRank);
     for(int i=0;i<ProblemRank;i++)
     {
         X[i]=i;
@@ -82,13 +82,4 @@ int main()
         else
             printf("converge\n");
     }
-//        double eps;
-//        for(int i=0;i<51;i++)
-//        {
-//            X= Addition(Product(MatrixD,Product(MatrixLU,X)),Product(MatrixD,b));
-//            eps=abs(VecNorm(Addition(Neg(b),Product(MatrixA,X)))/VecNorm(b));
-//            printf("epsilon=%lf at %d step\n",eps,i);
-//        }
-//        cout<< bvar[i]<< " result " << (eps>1?"diverge":"converge")<<endl;
-
 }

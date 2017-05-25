@@ -11,9 +11,6 @@
 
 using namespace std;
 
-
-bool pass[9];
-
 vector<double> createb1(int num,int VecSize)
 {
     vector<double> b(VecSize);
@@ -27,279 +24,131 @@ vector<double> createb1(int num,int VecSize)
     return b;
 }
 
-//void FullProduct(double A[5][5],vector<double> X,vector<double> &b)
-//{
-//    printf("b=\n");
-//    for(int i=0;i<5;i++)
-//    {
-//        for(int j=0;j<5;j++)
-//        {
-//            b[i]+= A[i][j]*X[j];
-//        }
-//        printf("    %.2lf\n",b[i]);
-//    }
-//}
-//
-//bool testproduct(CompressTypeMatrix Input,double A[5][5], vector<double> X, vector<double> &b)
-//{
-//    vector<double> bcomp(5);
-//    bool pass=true;
-//    b=Product(Input,X);
-//    if (b.size()==X.size())
-//        printf("size match \n");
-//    FullProduct(A,X,bcomp);
-//    for(int i=0;i<5;i++)
-//    {
-//        if (bcomp[i]!=b[i])
-//        {
-//            pass=false;
-//            break;
-//        }
-//    }
-//    if (pass)
-//        printf("Product test value match\n");
-//    else printf("product test failed\n");
-//    return pass;
-//}
-//
-//
-//double SecondNorm(CompressTypeMatrix SparseM, double A[5][5])
-//{
-//    bool NonZeroHaveSameIndi;
-//    double norm=0;
-//    if (SparseM.Rank!=5)
-//    {
-//        printf("the size of sparse matrix is not 5\n");
-//        return 0;
-//    }
-//    for(int i=0;i<5;i++)
-//    {
-//        for(int j=0;j<5;j++)
-//        {
-//            NonZeroHaveSameIndi=false;
-//            for(int Sp=0;Sp<SparseM.arrayPtr[i+1]-SparseM.arrayPtr[i];Sp++)
-//            {
-//                if (SparseM.arrayIndi[SparseM.arrayPtr[i]+Sp]==j)
-//                {
-//                    NonZeroHaveSameIndi= true;
-//                    norm += pow(A[i][j]-SparseM.arrayValue[SparseM.arrayPtr[i]+Sp],2);
-//                    break;
-//                }
-//            }
-//            if (!NonZeroHaveSameIndi)
-//                norm += pow(A[i][j],2);
-//        }
-//    }
-//    return norm;
-//}
-//void Trans2FullMatrix(CompressTypeMatrix Input,double OutPut[5][5])   //transform from Compress row form into Full Matrix
-//{
-//    int RowPtr;
-//    int ColPtr=0;
-//    int RowPrinted;
-//    int ValueIndi=0;
-//    for(int row=0;row<5;row++)
-//    {
-//        RowPrinted=0;
-//        RowPtr=Input.arrayPtr[row+1];
-//        for (int col=0;col<5;col++)
-//        {
-//            if (col==Input.arrayIndi[ColPtr])
-//            {
-//                if (Input.arrayPtr[row+1]-Input.arrayPtr[row] > RowPrinted )
-//                {
-//                    OutPut[row][col]=(double)Input.arrayValue[ValueIndi];
-//                    ValueIndi++;
-//                    ColPtr ++;
-//                    RowPrinted ++;
-//                 }
-//                else
-//                {
-//                    OutPut[row][col]=0.0;
-//                }
-//            }
-//            else
-//            {
-//                OutPut[row][col]=0.0;
-//            }
-//        }
-//    }
-//}
-//
-//void DisplayFullMatrix(double A[5][5])
-//{
-//    for(int i=0;i<5;i++)
-//    {
-//        for(int j=0;j<5;j++)
-//        {
-//            printf("  %.1lf  ",A[i][j]);
-//        }
-//        printf("\n");
-//    }
-//}
-//
-//bool testmatrixD(CompressTypeMatrix Input, double A[5][5])
-//{
-//    struct CompressTypeMatrix DD;
-//    double dis[5][5];
-//    DD=CreateDMatrix(Input);
-//    printf("Diagonal matrix:\n");
-//    DisplaySparseMatrix(DD);
-//    Trans2FullMatrix(DD,dis);
-//    DisplayFullMatrix(dis);
-//    if (SecondNorm(DD,A)==0)
-//        return true;
-//    else
-//        return false;
-//}
-//
-//bool testmatrixLU(CompressTypeMatrix Input, double A[5][5])
-//{
-//    struct CompressTypeMatrix LU;
-//    double dis[5][5];
-//    LU=CreateLUMatrix(Input);
-//    printf("L+U matrix:\n");
-//    DisplaySparseMatrix(LU);
-//    Trans2FullMatrix(LU,dis);
-//    DisplayFullMatrix(dis);
-//    if (SecondNorm(LU,A)==0)
-//        return true;
-//    else
-//        return false;
-//}
-//
-//bool testrowPermute(CompressTypeMatrix Input, double A[5][5])
-//{
-//    double dis[5][5];
-//    vector<double> b(5);
-//    PermuteSparse(Input,b,1,3);
-//    DisplaySparseMatrix(Input);
-//    Trans2FullMatrix(Input,dis);
-//    DisplayFullMatrix(dis);
-//    if (SecondNorm(Input,A)==0)
-//        return true;
-//    else
-//        return false;
-//}
-//
-//bool testcolPermute(CompressTypeMatrix Input, double A[5][5])
-//{
-//    double dis[5][5];
-//    vector<double> b(5);
-//    PermuteColomn(Input,b,1,3);
-//    DisplaySparseMatrix(Input);
-//    Trans2FullMatrix(Input,dis);
-//    DisplayFullMatrix(dis);
-//    if (SecondNorm(Input,A)==0)
-//        return true;
-//    else
-//        return false;
-//}
-//
-//bool testDiagonalMaximize(CompressTypeMatrix Input,double A[5][5])
-//{
-//    vector<double> Xcomp(5);
-//    vector<double> b(5);
-//    double dis[5][5];
-//    for(int i=0;i<5;i++)
-//    {
-//        Xcomp[i]=i+1;
-//        i==0?b[i]=1:b[i]=0;
-//    }
-//    Trans2FullMatrix(Input,dis);
-//    DisplayFullMatrix(dis);
-//    DiagonalMaximize(Input,Xcomp,b);
-//    printf("result:\n");
-//    Trans2FullMatrix(Input,dis);
-//    DisplayFullMatrix(dis);
-//    printf("corresponding Xcomp:\n");
-//    DisplayVector(Xcomp);
-//    printf("corresponding b:    \n");
-//    DisplayVector(b);
-//    if (SecondNorm(Input,A)==0)
-//        return true;
-//    else
-//        return false;
-//}
-//
-//void test1()
-//{
-//    struct CompressTypeMatrix TestData;
-//    for (int i=0;i<12;i++)
-//    {
-//        TestData.arrayValue[i]=(double)(i+1);
-//    }
-//    for(int i=0;i<9;i++)
-//        pass[i]=false;
-//    double A[5][5];
-//
-//    TestData.arrayIndi[0]=0;
-//    TestData.arrayIndi[1]=1;
-//    TestData.arrayIndi[2]=4;
-//    TestData.arrayIndi[3]=0;
-//    TestData.arrayIndi[4]=1;
-//    TestData.arrayIndi[5]=2;
-//    TestData.arrayIndi[6]=1;
-//    TestData.arrayIndi[7]=2;
-//    TestData.arrayIndi[8]=4;
-//    TestData.arrayIndi[9]=3;
-//    TestData.arrayIndi[10]=0;
-//    TestData.arrayIndi[11]=4;
-//    TestData.arrayPtr[0]=0;
-//    TestData.arrayPtr[1]=3;
-//    TestData.arrayPtr[2]=6;
-//    TestData.arrayPtr[3]=9;
-//    TestData.arrayPtr[4]=10;
-//    TestData.arrayPtr[5]=12;
-//
-//    vector<double> X(5);
-//    vector<double> b(5);
-//    for(int i=0;i<5;i++)
-//    {
-//        X[i]=i+1;
-//        b[i]=5-i;
-//    }
-//    /*TestData in both sparse and full matrix form*/
-//    printf("\n");
-//    Trans2FullMatrix(TestData,A);
-//    DisplayFullMatrix(A);
-//    if (SecondNorm(TestData,A)==0)
-//        pass[0]=true;
-//
-//    /*test Diagonal matrix transformation*/
-//    double sample1[5][5]={1,0,0,0,0,0,5,0,0,0,0,0,8,0,0,0,0,0,10,0,0,0,0,0,12};
-//    pass[1]=testmatrixD(TestData,sample1);
-//
-//    /*test L+U matrix transformation*/
-//    double sample2[5][5]={0,2,0,0,3,4,0,6,0,0,0,7,0,0,9,0,0,0,0,0,11,0,0,0,0};
-//    pass[2]=testmatrixLU(TestData,sample2);
-//
-//    /*test product Ax correctness*/
-//    printf("product test:\n");
-//    pass[3]=testproduct(TestData,A,X,b);
-//    printf("\n");
-//    DisplayVector(b);
-//
-//    /*test row permute*/
-//    printf("row permute test:\n");
-//    double sample3[5][5]={0,7,8,0,9,4,5,6,0,0,1,2,0,0,3,0,0,0,10,0,11,0,0,0,12};
-//    pass[4]=testrowPermute(TestData,sample3);
-//
-//    /*test col permute*/
-//    printf("col permute test:\n");
-//    double sample4[5][5]={0,2,1,0,3,6,5,4,0,0,8,7,0,0,9,0,0,0,10,0,0,0,11,0,12};
-//    pass[5]=testcolPermute(TestData,sample4);
-//
-//    /*test diagonal maximization*/
-//    printf("maximize diagonal test:\n");
-//    double sample5[5][5]={12,0,0,0,11,0,10,0,0,0,9,0,8,7,0,0,0,6,5,4,3,0,0,2,1};
-//    pass[6]=testDiagonalMaximize(TestData,sample5);
-//
-//    string  test[9]={" sparse transformation"," Diagonal check       "," L+U check            "," product test         "," row permute test     "," col permute test     "," MaximizeDiagonal test"};
-//
-//    for(int i=0;i<7;i++)
-//        cout << "test" << i+1 << test[i] <<(pass[i]?":    pass": ":    failed")<<endl;
-//}
+void runModularTest()   // modular test try to run all test embedded in existed matrix operate class, those tests generally test for each small function
+{
+    printf("Modular Test starts:\n");
+    MatrixOperate ModuleTest;
+    ModuleTest.testAddition();
+    ModuleTest.testNeg();
+    ModuleTest.testSecondNormandTran2FullMatrix();
+    ModuleTest.testVecNorm();
+}
+/** Parallel computing to check correctness
+ *
+ * set a matrix given in class
+ * compute that 5x5 matrix in both sparse and full matrix
+ * \return pass or failed
+ *
+ */
+
+MainFunctionalTest::MainFunctionalTest()
+{
+    printf("MainFunctionalTest(Parallel computing test) starts:\n");
+
+    /* build a TestData*/
+    CompressTypeMatrix TestData;
+    vector<double> a(12,0);
+    vector<int> b(12,0);
+    vector<int> c(6,0);
+    TestData.arrayIndi = b;
+    TestData.arrayValue = a;
+    TestData.arrayPtr = c;
+    TestData.Rank = 5;
+    TestData.NonZeroNumber = 12;
+
+    /* given TestData corresponding value */
+    for (int i=0;i<12;i++)                                   // give 12 array value
+    {
+        TestData.arrayValue[i]=(double)(i+1);
+    }
+
+    TestData.arrayIndi[0]=0;                              // give 12 array indices
+    TestData.arrayIndi[1]=1;
+    TestData.arrayIndi[2]=4;
+    TestData.arrayIndi[3]=0;
+    TestData.arrayIndi[4]=1;
+    TestData.arrayIndi[5]=2;
+    TestData.arrayIndi[6]=1;
+    TestData.arrayIndi[7]=2;
+    TestData.arrayIndi[8]=4;
+    TestData.arrayIndi[9]=3;
+    TestData.arrayIndi[10]=0;
+    TestData.arrayIndi[11]=4;
+    TestData.arrayPtr[0]=0;                               // give 5 array pointer
+    TestData.arrayPtr[1]=3;
+    TestData.arrayPtr[2]=6;
+    TestData.arrayPtr[3]=9;
+    TestData.arrayPtr[4]=10;
+    TestData.arrayPtr[5]=12;
+
+    /* save local private data */
+    TestCompressData = TestData;
+    MatrixOperate Ma;
+    TestFullData          = Ma.Trans2FullMatrix(TestData);
+    printf("display original Full matrix and Sparse matrix:\n");
+    Ma.DisplaySparseMatrix(TestData);                                       // display sparse matrix
+    Ma.DisplayFullMatrix(TestFullData);                                      // display full matrix
+}
+
+MainFunctionalTest::~MainFunctionalTest()
+{
+    //dtor
+}
+
+void MainFunctionalTest::runTest()
+{
+    vector<double> Xtest(5);                                                      // initialize a vector Xtest
+    vector<double> btest(5);                                                       // initialize a vector btest
+    SparseMatrixOperate SMO(TestCompressData,Xtest,btest);
+    FullMatrixOperate FMO(TestFullData,Xtest,btest);
+
+    /* product test */
+    if (SMO.VEq(  SMO.Product(TestCompressData,Xtest) , FMO.Product(TestFullData,Xtest)   ) )                                  // product vector from FMO =? SMO
+        printf("Product fixed value test:                                       pass\n");
+    else
+        printf("Product fixed value test:                                       failed\n");
+
+    /* D matrix generation test*/
+    if (SMO.SecondNorm(  SMO.CreateDMatrix(TestCompressData) , FMO.CreateDMatrix(TestFullData)   ) ==0 )             // second norm of D matrix generated from FMO and SMO =?0
+        printf("Matrix D generation fixed value test:                           pass\n");
+    else
+        printf("Matrix D generation fixed value test:                           failed\n");
+
+    /* LU matrix generation test*/
+    if (SMO.SecondNorm(  SMO.CreateLUMatrix(TestCompressData) , FMO.CreateLUMatrix(TestFullData)   ) ==0 )        // second norm of LU matrix generated from FMO and SMO =?0
+        printf("Matrix LU generation fixed value test:                          pass\n");
+    else
+        printf("Matrix LU generation fixed value test:                          failed\n");
+
+    CompressTypeMatrix Ex1;                                                                                                                                         // build another compress matrix as experiment because in permute function, original memory will be covered
+    vector< vector<double> >    Ex2;                                                                                                                             // build another full matrix as experiment
+    Ex1 = TestCompressData;
+    Ex2 = TestFullData;
+
+    /* RowPermute test*/
+    SMO.PermuteRow(Ex1,btest,1,3);                                                                                                                              // Do row permutation in each system
+    FMO.PermuteRow(Ex2,btest,1,3);
+    if (SMO.SecondNorm( Ex1 , Ex2 ) == 0 )                                                                                                                   // second norm of Ex1,Ex2(permutation result from sparse and full matrix system) =?0
+        printf("RowPermute test fixed value test:                               pass\n");
+    else
+        printf("RowPermute test fixed value test:                              failed\n");
+
+    /* Column Permute test*/
+    SMO.PermuteColumn(Ex1,btest,1,3);                                                                                                                         // Do column permutation in each system
+    FMO.PermuteColumn(Ex2,btest,1,3);
+    if (SMO.SecondNorm( Ex1 , Ex2 ) == 0 )                                                                                                                   // second norm of Ex1,Ex2(permutation result from sparse and full matrix system) =?0
+        printf("Column Permute test fixed value test:                           pass\n");
+    else
+        printf("Column Permute test fixed value test:                          failed\n");
+
+    /* Diagonal Maximization test*/
+    SMO.DiagonalMaximize(Ex1,Xtest,btest);                                                                                                                         // Do column permutation in each system
+    FMO.DiagonalMaximize(Ex2,Xtest,btest);
+    if (SMO.SecondNorm( Ex1 , Ex2 ) == 0 )                                                                                                                   // second norm of Ex1,Ex2(permutation result from sparse and full matrix system) =?0
+        printf("Diagonal Maximization test fixed value test:                    pass\n");
+    else
+        printf("Diagonal Maximization test fixed value test:                   failed\n");
+}
 //
 //
 //void test2()

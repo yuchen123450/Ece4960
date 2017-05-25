@@ -16,7 +16,7 @@
 	<vector>
 	<algorithm>
 
-1495593273 source:c:\users\yuche\desktop\ece4960\platform\assigment2\main.cpp
+1495686560 source:c:\users\yuche\desktop\ece4960\platform\assigment2\main.cpp
 	<iostream>
 	<cmath>
 	<cstdio>
@@ -27,7 +27,7 @@
 	"MatrixOperate.h"
 	"test.h"
 
-1495594505 source:c:\users\yuche\desktop\ece4960\platform\assigment2\test.cpp
+1495688336 source:c:\users\yuche\desktop\ece4960\platform\assigment2\test.cpp
 	<iostream>
 	<cmath>
 	<cstdio>
@@ -38,7 +38,7 @@
 	"test.h"
 	"MatrixOperate.h"
 
-1495594511 c:\users\yuche\desktop\ece4960\platform\assigment2\test.h
+1495685276 c:\users\yuche\desktop\ece4960\platform\assigment2\test.h
 	<cstdio>
 	<stdio.h>
 	<vector>
@@ -47,11 +47,11 @@
 	<stdio.h>
 	"MatrixOperate.h"
 
-1495607472 c:\users\yuche\desktop\ece4960\platform\assigment2\include\matrixoperate.h
+1495686288 c:\users\yuche\desktop\ece4960\platform\assigment2\include\matrixoperate.h
 	<vector>
 	<stdlib.h>
 
-1495593217 source:c:\users\yuche\desktop\ece4960\platform\assigment2\src\matrixoperate.cpp
+1495687243 source:c:\users\yuche\desktop\ece4960\platform\assigment2\src\matrixoperate.cpp
 	<vector>
 	<stdlib.h>
 	<cmath>

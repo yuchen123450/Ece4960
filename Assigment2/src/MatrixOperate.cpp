@@ -1,7 +1,7 @@
 /** Matrix Operator
  *
  * Chen Yu
- * 5/23/2017
+ * 5/24/2017
  * Input: matrix A, vector X or vector b
  * Output: corresponding vector b or vector X satisfying Ax=b
  */
@@ -19,11 +19,11 @@ using namespace std;
         Input.arrayIndi.push_back(A-1);                                 // add a indices to arryindi: normal expression col is A, but store in c++, the array col indice should be A-1
         Input.arrayValue.push_back(C);                                  // add a value
         Input.NonZeroNumber++;                                            // more nonzero number
-        if (B == rowpointer)                                                    // still on the same row as previous added element
+        if (B == rowpointer)                                                     // still on the same row as previous added element
             Input.arrayPtr[B]++;                                                // increment arrayptr number on such row
         else if (B>rowpointer)                                                // when input point is on another row
         {
-            for(int j=rowpointer+1;j<=B;j++)                          // from the previous row to the input point row, all rows' ptr should be the same as previous row ptr number
+            for(int j=rowpointer+1;j<=B;j++)                             // from the previous row to the input point row, all rows' ptr should be the same as previous row ptr number
             {
                 Input.arrayPtr.push_back(Input.arrayPtr[rowpointer]);
                 Input.Rank++;                                                      // increase the rank till input row B
@@ -73,9 +73,9 @@ void MatrixOperate::testNeg()                                                   
     }                                                                                                             // a is a very random vector
 
     if (VEq( Addition(a,Neg(a)), Sresult ) )
-        printf("Neg random value test:                      pass\n");
+        printf("Neg random value test:                                      pass\n");
     else
-        printf("Neg random value test:                      failed\n");
+        printf("Neg random value test:                                      failed\n");
 }
 
 vector<int> MatrixOperate::Convert2Int(vector<double> Input)             // convert double vector into integers
@@ -92,26 +92,28 @@ double MatrixOperate::VecNorm(vector<double> Input)// calculate vector's second 
 {
     double result=0;
     for(int i=0;i<Input.size();i++)
-        result += pow(Input[i],2);                                                                   //   result store sum of square of each term in vector
+        result += pow(Input[i],2);                                                                    //   result store sum of square of each term in vector
     return sqrt(result);                                                                                 // return square root of that sum
 }
 
-void MatrixOperate::testVecNorm()                                                          // test whether VecNorm operated correctly
+void MatrixOperate::testVecNorm()                                                            // test whether VecNorm operated correctly
 {
     int r=rand() % 20;                                                                                  // set random number less than 20
-    double Sresult = pow((double)r,2.0);                                                    // set sample result = r^2
+    double dr = (double) r;
+    double Sresult = sqrt(dr*(dr+1)*(2*dr+1)/6);                                           // set sample result = sqrt(r*(r+1)*(2r+1)/6)
     vector<double> a(r);
     for(int i=0;i<r;i++)
     {
-        a[i]=2*i-1;                                                                                         // set vector = 1,3,5,7.....2i-1
+        a[i]=i+1;                                                                                             // set vector = 1,2,3,4,...r
     }
+    //printf("sresult= %lf, vecnorm")
     if (Sresult == VecNorm(a))
-        printf("VecNorm random value test:                      pass\n");
+        printf("VecNorm random value test:                                  pass\n");
     else
-        printf("VecNorm random value test:                      failed\n");
+        printf("VecNorm random value test:                                  failed\n");
 }
 
-int MatrixOperate::Zeroes(vector<double> &X)                                     //make vector all zero
+int MatrixOperate::Zeroes(vector<double> &X)                                       //make vector all zero
 {
     for(int i=0;i<X.size();i++)
     {
@@ -148,9 +150,9 @@ void MatrixOperate::testAddition()
     }
     result=Addition(X1,X2);
     if (VEq(result,Sresult))                                                                           // if X1 + X2 = 5,5,5,5,5 then pass
-        printf("addition fiexed value test:                      pass\n");
+        printf("addition fiexed value test:                                 pass\n");
     else
-        printf("addition fiexed value test:                      failed\n");
+        printf("addition fiexed value test:                                 failed\n");
 }
 
 bool MatrixOperate::VEq(vector<double> A, vector<double>  B)
@@ -227,27 +229,27 @@ void MatrixOperate::DisplayFullMatrix(vector< vector<double> > A)
 vector< vector<double> > MatrixOperate::Trans2FullMatrix(CompressTypeMatrix Input)   //transform from Compress row form into Full Matrix
 {
     int Size=Input.Rank;
-    vector< vector<double> > OutPut(Size, vector<double>(Size));                                        // initialize the output as the rank or compress matrix
+    vector< vector<double> > OutPut(Size, vector<double>(Size));                                           // initialize the output as the rank or compress matrix
     int RowPtr;
     int ColPtr=0;                                                                                                                          // initialize the column pointer to be 0
     int RowPrinted;
     int ValueIndi=0;                                                                                                                     // initialize the value indice 0
-    for(int row=0;row<Size;row++)                                                                                           // row increasing
+    for(int row=0;row<Size;row++)                                                                                              // row increasing
     {
         RowPrinted=0;                                                                                                                   // for each row, at the beginning has printed no point
-        RowPtr=Input.arrayPtr[row+1];                                                                                         // the first nonzero value has indices here
-        for (int col=0;col<Size;col++)                                                                                          // row increasing
+        RowPtr=Input.arrayPtr[row+1];                                                                                          // the first nonzero value has indices here
+        for (int col=0;col<Size;col++)                                                                                             // row increasing
         {
-            if (col==Input.arrayIndi[ColPtr])                                                                                   // when the column indice in compress matrix is nonzero
+            if (col==Input.arrayIndi[ColPtr])                                                                                      // when the column indice in compress matrix is nonzero
             {
-                if (Input.arrayPtr[row+1]-Input.arrayPtr[row] > RowPrinted )                                 // check in the compress matrix, whether this row has already printed out all nonzero value
+                if (Input.arrayPtr[row+1]-Input.arrayPtr[row] > RowPrinted )                                      // check in the compress matrix, whether this row has already printed out all nonzero value
                 {
-                    OutPut[row][col]=(double)Input.arrayValue[ValueIndi];                                     //  full matrix receive the nonzero in compress matrix
+                    OutPut[row][col]=(double)Input.arrayValue[ValueIndi];                                         //  full matrix receive the nonzero in compress matrix
                     ValueIndi++;                                                                                                         // find next column pointer of nonzero in compress matrix
                     ColPtr ++;                                                                                                             // column pointer increment
-                    RowPrinted ++;                                                                                                    // in the row, printed points increment
+                    RowPrinted ++;                                                                                                     // in the row, printed points increment
                  }
-                else                                                                                                                            // all other condition full matrix should still store 0
+                else                                                                                                                         // all other condition full matrix should still store 0
                 {
                     OutPut[row][col]=0.0;
                 }
@@ -260,6 +262,65 @@ vector< vector<double> > MatrixOperate::Trans2FullMatrix(CompressTypeMatrix Inpu
     }
     return OutPut;
 }
+
+double MatrixOperate::SecondNorm(CompressTypeMatrix SparseM, vector< vector<double> > A)
+{
+    bool NonZeroHaveSameIndi;
+    double norm=0;
+    int Size=A.size();
+    if (SparseM.Rank!=Size)
+    {
+        printf("the size of sparse matrix is not same as vector size \n");
+        return 0;
+    }
+    for(int i=0;i<Size;i++)                                                                                                     // row increasing
+    {
+        for(int j=0;j<Size;j++)                                                                                                 // column increasing
+        {
+            NonZeroHaveSameIndi=false;
+            for(int Sp=0;Sp<SparseM.arrayPtr[i+1]-SparseM.arrayPtr[i];Sp++)                         // Sp go through all values in the row i according to compress matrix
+            {
+                if (SparseM.arrayIndi[SparseM.arrayPtr[i]+Sp]==j)                                             // nonzero value in compress matrix match j(column value in full matrix)
+                {
+                    NonZeroHaveSameIndi= true;
+                    norm += pow(A[i][j]-SparseM.arrayValue[SparseM.arrayPtr[i]+Sp],2);            // only add once, in the matched case then break
+                    break;
+                }
+            }
+            if (!NonZeroHaveSameIndi)                                                                                   // in compress matrix there is no matched nonzero term
+                norm += pow(A[i][j],2);                                                                                      // so the norm is only depending on full matrix here(in compress matrix its 0)
+        }
+    }
+    return sqrt(norm);
+}
+
+void MatrixOperate::testSecondNormandTran2FullMatrix()                                                  // the test is a kind of inverse test to test both Trans2FullMatrix and SecondNorm
+{
+    CompressTypeMatrix sample;                                                                                         // declare a compress matrix
+    sample.arrayPtr.push_back(0);                                                                                      // initialize array ptr
+    int c,s,row,col,rpointer;
+    s=rand()%10;                                                                                                                 // random a size less than 10
+    rpointer = 0;
+    for(int i=0; i < s; i++)                                                                                                     // random even in size
+    {
+        col   = rand() % s;
+        row = i;
+        c=AddElementIntoSparseM(sample,col+1, row+1, (double)(rand()% 100), 1,rpointer);
+    }
+    vector< vector<double> > Fmatrix;
+    Fmatrix = Trans2FullMatrix(sample);
+    if (SecondNorm(sample,Fmatrix)< pow(10,-7))
+    {
+        printf("Trans2FullMatrix test:                                      pass\n");
+        printf("Second norm test:                                           pass\n");
+    }
+    else
+    {
+        printf("Trans2FullMatrix test:                                      failed\n");
+        printf("Second norm test:                                           failed\n");
+    }
+}
+
 /**
  * SparseMatrix Operate
  * subclass
@@ -286,14 +347,14 @@ vector<double> SparseMatrixOperate::Product(CompressTypeMatrix Input, vector<dou
 {
     vector<double> b(X.size());
     int cont;
-    cont=Zeroes(b);                                                                 // initialize output with all zeroes
+    cont=Zeroes(b);                                                                                                                      // initialize output with all zeroes
     if(X.size()!=Input.Rank)
     {
         printf("vector size is different from that matrix rank\n");
         printf("vector size: %d,   matrix size: %d \n", X.size(),Input.Rank);
         return b;
     }
-    for(int i=0;i<Input.Rank;i++)                                                                                                   // row increasing
+    for(int i=0;i<Input.Rank;i++)                                                                                                  // row increasing
     {
         for(int j=0;j<Input.arrayPtr[i+1]-Input.arrayPtr[i];j++)                                                       // search out each row nonzero number
         {
@@ -308,18 +369,18 @@ vector<double> SparseMatrixOperate::Product(CompressTypeMatrix Input, vector<dou
 CompressTypeMatrix SparseMatrixOperate::CreateDMatrix(CompressTypeMatrix Input)                                                                 // get a Diagonal Matrix from Input Matrix
 {
     struct CompressTypeMatrix MatrixD;
-    MatrixD.arrayPtr.push_back(0);                                                  // initialize default zero for compress output's ptr vector
-    int Dptrpointer=0,Dpointer=0;                                                     // build compress matrix from 0,0
+    MatrixD.arrayPtr.push_back(0);                                                     // initialize default zero for compress output's ptr vector
+    int Dptrpointer=0,Dpointer=0;                                                          // build compress matrix from 0,0
     int feedback;
-    for(int i=0;i<Input.Rank;i++)                                                       // row increasing
+    for(int i=0;i<Input.Rank;i++)                                                           // row increasing
     {
-        for(int j=Input.arrayPtr[i];j<Input.arrayPtr[i+1];j++)              // search start from next row first nonzero column
+        for(int j=Input.arrayPtr[i];j<Input.arrayPtr[i+1];j++)                     // search start from next row first nonzero column
         {
-            if (Input.arrayIndi[j]==i)                                                      // if Aij is nonzero: i=j, then add an element to D matrix
+            if (Input.arrayIndi[j]==i)                                                          // if Aij is nonzero: i=j, then add an element to D matrix
             {
                 feedback = AddElementIntoSparseM(MatrixD,Input.arrayIndi[j]+1,i+1,Input.arrayValue[j],Dpointer,Dptrpointer);            //add an element to D matrix
-                Dpointer++;                                             // increase D pointer
-                break;                                                      // stop the search in the row
+                Dpointer++;                                                                       // increase D pointer
+                break;                                                                              // stop the search in the row
             }
         }
     }
@@ -329,14 +390,14 @@ CompressTypeMatrix SparseMatrixOperate::CreateDMatrix(CompressTypeMatrix Input) 
 CompressTypeMatrix SparseMatrixOperate::CreateLUMatrix(CompressTypeMatrix Input)                                                             // get a LU Matrix from Input Matrix
 {
     struct CompressTypeMatrix matrixLU;
-    matrixLU.arrayPtr.push_back(0);                             // initialize default zero for compress output's ptr vector
-    int LUptrpointer=0,LUpointer=0;                              // build compress matrix from 0,0
+    matrixLU.arrayPtr.push_back(0);                                      // initialize default zero for compress output's ptr vector
+    int LUptrpointer=0,LUpointer=0;                                         // build compress matrix from 0,0
     int feedback;
-    for(int i=0;i<Input.Rank;i++)                                    // row increasing
+    for(int i=0;i<Input.Rank;i++)                                               // row increasing
     {
-        for(int j=Input.arrayPtr[i];j<Input.arrayPtr[i+1];j++)   // search start from next row first nonzero column
+        for(int j=Input.arrayPtr[i];j<Input.arrayPtr[i+1];j++)         // search start from next row first nonzero column
         {
-            if (Input.arrayIndi[j]!=i )                                           // if Aij is nonzero: i!= j, then add an element to LU matrix, LU matrix is just exclude Diagonal
+            if (Input.arrayIndi[j]!=i )                                              // if Aij is nonzero: i!= j, then add an element to LU matrix, LU matrix is just exclude Diagonal
             {
                 feedback=AddElementIntoSparseM(matrixLU,Input.arrayIndi[j]+1,i+1,Input.arrayValue[j],LUpointer,LUptrpointer);   //add an element to D matrix
                 LUpointer++;                                                        // increase D pointer
@@ -369,20 +430,31 @@ vector<double> SparseMatrixOperate::JacobiSolve()
     double eps;
     InverseSparseDiagonal(D);
     vector<double> X(A.Rank,0);
+    vector<double> result(A.Rank);
     vector<double> Z(A.Rank,0);
-    for(int i=0;i<30;i++)
+    void DiagonalMaximize();
+
+    for(int i=0;i<30;i++)                                                                                        // manually set max loop turns as 30
     {
-        X= Addition(Product(D,Product(LU,X)),Product(D,b));                                 // X(k+1) = invD*invLU*X(k)+invD*b
+        X= Addition(Product(D,Product(LU,X)),Product(D,b));                                // X(k+1) = invD*invLU*X(k)+invD*b
         eps=abs(VecNorm(Addition(Neg(b),Product(A,X)))/VecNorm(b));              // calculate epsilon
-        printf("epsilon=%lf at %d step\n",eps,i);
     }
-    if (eps>1)
+    if (eps>1)                                                                                                      // diverge then return all 0
+    printf("epsilon=%lf at %d step\n",eps,i);
     {
+        Isconverge = false;
         return Z;
     }
     else
     {
-        return X;
+        Isconverge = true;
+
+        /* Do shift result to find out real result after shifting*/
+        for(int j=0;j<A.Rank;j++)                                                                           // go through vector X, reflect to correct order of result
+        {
+            result[x[j]] = X[j];
+        }
+        return result;
     }
 }
 
@@ -395,7 +467,7 @@ vector<double> SparseMatrixOperate::JacobiSolve()
 
 void SparseMatrixOperate::PermuteRow(CompressTypeMatrix &Input,vector<double> &b, int RowIndex1, int RowIndex2)
 {
-    SwitchTwoNumber(b[RowIndex1-1],b[RowIndex2-1])                                                          // switch 2 number in vector b
+    SwitchTwoNumber(b[RowIndex1-1],b[RowIndex2-1]);                                                          // switch 2 number in vector b
 
     /*get each row # of nonzero value first*/
     int EachRowContainsNonZero[Input.Rank];
@@ -464,7 +536,6 @@ void SparseMatrixOperate::PermuteRow(CompressTypeMatrix &Input,vector<double> &b
         if(i<Input.Rank)
             Input.arrayPtr[i+1]=accumu;                                                                     // the current row ptr array store accumulated number of nonzero values
     }
-    printf("\n");
 }
 
 void SparseMatrixOperate::PermuteColumn(CompressTypeMatrix &Input,vector<double> &X, int ColIndex1, int ColIndex2)
@@ -521,48 +592,166 @@ void SparseMatrixOperate::PermuteColumn(CompressTypeMatrix &Input,vector<double>
     }
 }
 
+/* maximize the diagonal to try to make the diagonal terms dominating */
 void SparseMatrixOperate::DiagonalMaximize(CompressTypeMatrix &Input,vector<double> &Xcomp,vector<double> &b)
 {
     int ptr;
     double Max;
     int row,col;
     bool shift;
-    for(int i=0;i<Input.Rank;i++)
+    for(int i=0;i<Input.Rank;i++)                                                                                         // row increasing
     {
-        shift=false;
-        row=0;
-        col=0;
+        shift=false;                                                                                                              // assume at the beginning we don't have to do any shifting work
+        row=0;                                                                                                                    // current row pointer points to first row
+        col=0;                                                                                                                     // current column pointer points to first column
         ptr=Input.arrayPtr[i];
-        Max=Input.arrayValue[ptr];
+        Max=Input.arrayValue[ptr];                                                                                     // set an initial maximum
         /*Find maximum and corresponding ptr*/
-        for(int j=Input.arrayPtr[i];j<Input.NonZeroNumber;j++)
+        for(int j=Input.arrayPtr[i];j<Input.NonZeroNumber;j++)                                            // column search starting from current row pointer
         {
-            if ((Input.arrayValue[j]>Max) && (Input.arrayIndi[j]>=i))
+            if ((Input.arrayValue[j]>Max) && (Input.arrayIndi[j]>=i))                                     // find out the maximum value and its index
             {
                 Max=Input.arrayValue[j];
                 ptr=j;
-                shift=true;
+                shift=true;                                                                                                       // any value greater than the beginning, then we should do a shift
             }
         }
         if (shift)
         {
         /*figure out corresponding row and col*/
-            for(int j=0;j<=Input.Rank;j++)
-                if (ptr<Input.arrayPtr[j])
+            for(int j=0;j<=Input.Rank;j++)                                                                              //  row increasing
+                if (ptr<Input.arrayPtr[j])                                                                                   // whenever see arrayPtr has greater value, means that row is the value belongs to
                 {
                     row=j;
-                    break;
+                    break;                                                                                                        // don't keep on search, we already get row
                 }
             col=Input.arrayIndi[ptr]+1;
         /*Do permute*/
             if ((row==i+1) && (col!=i+1))
-                PermuteColomn(Input,Xcomp,i,col-1);
+                PermuteColumn(Input,Xcomp,i,col-1);
             if ((row!=i+1) && (col==i+1))
-                PermuteSparse(Input,b,i,row-1);
+                PermuteRow(Input,b,i,row-1);
             if ((row!=i+1) && (col!=i+1))
             {
-                PermuteSparse(Input,b,i+1,row);
-                PermuteColomn(Input,Xcomp,i+1,col);
+                PermuteRow(Input,b,i+1,row);
+                PermuteColumn(Input,Xcomp,i+1,col);
+            }
+        }
+    }
+}
+
+void SparseMatrixOperate::DiagonalMaximize()
+{
+    DiagonalMaximize(A,x,b);
+}
+
+
+FullMatrixOperate::FullMatrixOperate(vector< vector<double> > MatrixA, vector<double> X, vector<double> B)
+{
+    /* default set Operate class */
+    A=MatrixA;
+    x=X;
+    b=B;
+    IsFullMatrix = true;
+    //D = CreateDMatrix();                // compute Diagonal Matrix from A
+    //LU = CreateLUMatrix();            // compute Lower and Upper Matrix from A
+}
+
+FullMatrixOperate::~FullMatrixOperate()
+{
+    //dtor
+}
+
+vector<double> FullMatrixOperate::Product(vector< vector<double> > A,vector<double> X)
+{
+    vector<double> b(X.size(),0);
+    for(int i=0;i<A.size();i++)                                                                             // row increasing
+    {
+        for(int j=0;j<A[0].size();j++)                                                                     // column increasing
+        {
+            b[i]+= A[i][j]*X[j];                                                                                // sum of aij*Xj
+        }
+    }
+    return b;
+}
+
+void FullMatrixOperate::PermuteRow(vector< vector<double> > &Input, vector<double> &b, int RowIndex1, int RowIndex2)
+{
+    SwitchTwoNumber(b[RowIndex1-1],b[RowIndex2-1]);                                                          // switch 2 number in vector b
+
+    for(int j=0;j<Input[0].size();j++)                                                                                           // column increasing
+    {
+        SwitchTwoNumber(Input[RowIndex1-1][j],Input[RowIndex2-1][j]);                                   // shift every a[row1][i] and a[row2][i]
+    }
+}
+
+
+void FullMatrixOperate::PermuteColumn(vector< vector<double> > &Input, vector<double> &X, int ColIndex1, int ColIndex2)
+{
+    SwitchTwoNumber(X[ColIndex1-1],X[ColIndex2-1]);                                                          // switch 2 number in vector b
+    for(int i=0;i<Input.size();i++)                                                                                             // row increasing
+    {
+        SwitchTwoNumber(Input[i][ColIndex1-1],Input[i][ColIndex2-1]);                                     // shift every a[i][column1] and a[i][column2]
+    }
+}
+
+vector< vector<double> > FullMatrixOperate::CreateDMatrix(vector< vector<double> > Input)
+{
+    vector< vector<double> > Output(Input.size(),vector<double>(Input[0].size(),0));                                                             // initialize output as the same size as Input with all 0
+    for(int i=0;i<Input.size();i++)                                                                                              // row increasing
+    {
+        Output[i][i]=Input[i][i];                                                                                                   // only receive value on diagonal
+    }
+    return Output;
+}
+
+vector< vector<double> > FullMatrixOperate::CreateLUMatrix(vector< vector<double> > Input)
+{
+    vector< vector<double> > Output= Input;                                                                         // initialize output to be Input matrix
+    for(int i=0;i<Input.size();i++)                                                                                              // row increasing
+    {
+        Output[i][i]=0;                                                                                                               // clean values on diagonal
+    }
+    return Output;
+}
+
+void FullMatrixOperate::DiagonalMaximize( vector< vector<double> > &Input,vector<double> &Xcomp,vector<double> &b)
+{
+    double Max;
+    int row,col;
+    bool shift;
+    int Size=Input.size();
+    for(int r=0;r<Input.size();r++)                                                                                      // starting point increasing, step by step, moving along diagonal
+    {
+        shift=false;                                                                                                              // assume at the beginning we don't have to do any shifting work
+        row=0;                                                                                                                    // current row pointer points to first row
+        col=0;                                                                                                                     // current column pointer points to first column
+        Max = Input[r][r];                                                                                                   // set an initial maximum
+        /*Find maximum and corresponding ptr*/
+        for(int i=r;i<Size;i++)                                                                                             // row increasing starting from current row pointer
+        {
+            for(int j = r;j<Size;j++)                                                                                       // column increasing starting from current row pointer
+            {
+                if (Input[i][j]>Max)                                                                                        // find out the maximum value and its indices
+                {
+                    Max=Input[i][j];
+                    row = i;
+                    col  = j;
+                    shift=true;                                                                                                // any value greater than the beginning, then we should do a shift
+                }
+            }
+        }
+        if (shift)
+        {
+        /*Do permute*/
+            if ((row==r) && (col!=r))                                                                                   // if max is in the same row with current r
+                PermuteColumn(Input,Xcomp,r+1,col+1);                                                         // only permute column
+            if ((row!=r) && (col==r))                                                                                   // if in the same column
+                PermuteRow(Input,b,r+1,row+1);
+            if ((row!=r) && (col!=r))                                                                                    // if with different row and column
+            {
+                PermuteRow(Input,b,r+1,row+1);
+                PermuteColumn(Input,Xcomp,r+1,col+1);
             }
         }
     }
